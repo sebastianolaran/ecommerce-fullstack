@@ -1,0 +1,17 @@
+.main{
+
+  margin: 1rem;
+  border: 1px red solid;
+}
+
+
+.main div{
+  border: 1px solid saddlebrown;
+}
+
+
+
+.producto{
+  display: flex;
+  justify-content: space-between;
+}

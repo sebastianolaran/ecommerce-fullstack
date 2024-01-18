@@ -1,0 +1,10 @@
+Backend
+
+
+- Crear Producto
+-Rest
+-Acceder a datos del objeto 
+-Validaciones
+-Catwegroias como clase
+-Ver lod e imagenes
+-Login

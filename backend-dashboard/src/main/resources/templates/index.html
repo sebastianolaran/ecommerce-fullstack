@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+</head>
+<body>
+
+<header th:replace="~{layout/plantilla :: header}"></header>
+
+<a th:href="@{/agregar}">Click aqui para Crear Personsa</a>
+
+
+<br>
+
+<div th:if="${productos != null and !productos.isEmpty()}">
+    <table border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+
+
+        <tr th:each="producto : ${productos} ">
+            <td th:text="${producto.getNombre()}"></td>
+            <td th:text="${producto.getPrecio()}"></td>
+            <td th:text="${producto.getCategoria()}"></td>
+            <td th:text="${producto.getDescripcion()}"></td>
+
+
+        </tr>
+
+    </table>
+</div>
+<div th:if="${productos == null or productos.isEmpty()}">
+    La lista esta vacia
+</div>
+
+
+<footer th:replace="~{layout/plantilla:: footer}">
+
+</footer>
+
+
+</body>
+</html>

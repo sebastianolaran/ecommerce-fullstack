@@ -1,0 +1,31 @@
+@if (productosResultados$ | async; as resultObject){
+
+
+<div class="main">
+
+  <app-nav-bar></app-nav-bar>
+
+
+  <div className='inicial'>
+
+    <button className='add'>Añadir Producto</button>
+
+    <div className='productos'>
+      <h3>Producto</h3>
+      <div className='productos-info'>
+        @for (producto of resultObject ; track producto.id_producto) {
+          <div className='producto'>
+            <p className='nombre-producto'>{{ producto.nombre }}</p>
+            <div className='botones'>
+              <button className='edit'>Edit</button>
+              <button className='delete'>Delete</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
+}

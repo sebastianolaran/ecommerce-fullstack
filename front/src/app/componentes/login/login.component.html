@@ -1,0 +1,22 @@
+<form [formGroup]="formularioIngreso" (ngSubmit)="onSubmit()">
+
+  <div>
+
+    <label for="username">Username:</label>
+    <input [ngClass]="{'is-invalid': hasErrors('username','required')}" type="text" id="username"
+           formControlName="username"><br>
+    @if (hasErrors('username', 'required')) {
+      <div class="text-danger">Nombre requerido</div>
+    }
+
+  </div>
+
+  <label for="password">Password:</label>
+  <input type="password" id="password" formControlName="password"><br>
+  @if (hasErrors('password', 'required')) {
+    <div class="text-danger">Contraseña requerido</div>
+  }
+
+
+  <button type="submit" class="btn btn-primary" [disabled]="formularioIngreso.invalid">Iniciar Sesión</button>
+</form>

@@ -1,0 +1,156 @@
+
+
+
+/*Side bar parte sin toggle*/
+
+i{font-size: 20px;}
+
+
+.top{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top .logo{
+  display: none;
+}
+
+
+.user{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.user div{display: none;}
+
+
+
+ul{
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: .9;
+  align-items: center;
+  margin: 1.5rem;
+
+}
+
+
+li a {
+  text-decoration: none;
+  color: white;
+}
+
+li .nav-item{
+  display: none;
+}
+
+.user-img{
+  width: 70px;
+  border-radius: 100%;
+  border: 1px solid white;
+}
+
+
+li .tooltip{
+  color: black;
+  position: absolute;
+  left: 10rem;
+  box-shadow: 0 .5rem 0.8rem rgba(0, 0, 0, 0.2);
+  border-radius: .6rem;
+  z-index: 20;
+  opacity: 0;
+  display: none;
+  font-size: 1.3rem;
+  padding: .4rem 1.2rem;
+
+
+}
+
+
+li:hover .tooltip{
+  display: inline;
+  opacity: 1;}
+
+
+/*Toggle activo*/
+
+
+.sidebar.active *{
+  font-size: 20px;
+}
+
+
+.sidebar.active .tooltip{display: none;}
+
+.sidebar.active {
+  width: 20vw;
+}
+
+.sidebar.active span{
+  display: inline
+}
+
+
+.sidebar.active .top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;}
+
+
+.sidebar.active .top i{
+  font-size: 25px;
+}
+
+.sidebar.active .logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sidebar.active .logo span{
+  font-size: 30px;
+}
+
+
+.sidebar.active .user{
+  display: flex;
+  justify-content: flex-start;
+  gap: 1.5rem;
+}
+
+
+
+.sidebar.active  .user div{
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+.sidebar.active  .user div p{
+  font-size:20px;
+}
+
+.sidebar.active  .user div .bold{
+  font-weight: bold;
+}
+
+
+.sidebar.active li{
+  width: 100%;
+}
+
+
+.sidebar.active li a{
+
+
+  display: flex;
+  justify-content: flex-start;
+  gap: 1.5rem;
+}
+
