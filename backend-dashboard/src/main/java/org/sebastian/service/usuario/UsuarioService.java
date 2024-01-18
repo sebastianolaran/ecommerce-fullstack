@@ -15,4 +15,6 @@ public interface UsuarioService {
     public void eliminar(Usuario usuario);
 
     public Usuario encontrarUsuario(Usuario usuario);
+
+    Usuario encontrarUsuarioPorUsername(String username);
 }

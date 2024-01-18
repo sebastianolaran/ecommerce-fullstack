@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -36,5 +37,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario encontrarUsuario(Usuario usuario) {
         return usuarioDAO.findById(usuario.getId_usuario()).orElse(null);
+    }
+
+    @Override
+    public Usuario encontrarUsuarioPorUsername(String username) {
+        List<Usuario> usuarios = (List<Usuario>) usuarioDAO.findAll();
+        Usuario usuarioEncontrado = null;
+        for ( Usuario usuario : usuarios){
+            if(Objects.equals(usuario.getUsername(), username)){
+                usuarioEncontrado = usuario;
+            }
+        }
+        return usuarioEncontrado;
+
     }
 }

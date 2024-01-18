@@ -74,10 +74,12 @@ public class ControladorUsuarios {
 
 
     // Obtener un usuario por su ID o devolver null si no existe
-    @GetMapping("/buscar/{idUsuario}")
-    public ResponseEntity<Usuario> buscarUsuario(Usuario usuario) {
 
-        Usuario usuarioEncontrado = usuarioService.encontrarUsuario(usuario);
+
+
+    @GetMapping("/buscar/{username}")
+    public ResponseEntity<Usuario> buscarUsuario(@PathVariable String username) {
+        Usuario usuarioEncontrado = usuarioService.encontrarUsuarioPorUsername(username);
 
         if (usuarioEncontrado != null) {
             // Si el usuario existe, retorna el usuario y un código de estado OK
@@ -87,6 +89,7 @@ public class ControladorUsuarios {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
 
 
 }
