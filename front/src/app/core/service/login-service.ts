@@ -10,7 +10,7 @@ import {Usuario} from "../../interfaces/usuario";
   providedIn: 'root'
 })
 export class LoginService {
-  
+
 
   constructor(private http: HttpClient) {
   }
@@ -22,7 +22,6 @@ export class LoginService {
     return this.http.get<Usuario[]>(`${this.apiUrl}/`)
   }
 
-
   encontrarUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}/buscar/${usuario.id_usuario}`)
   }
@@ -30,5 +29,11 @@ export class LoginService {
   encontrarUsuarioPorUsername( username : string): Observable<Usuario>{
     return this.http.get<Usuario>(`${this.apiUrl}/buscar/${username}`)
   }
+
+  login(username: string, password: string): Observable<any> {
+    const credentials = { username, password };
+
+    // Realiza la solicitud POST al endpoint de inicio de sesión en tu servidor
+    return this.http.post<any>(`${this.apiUrl}/login`, credentials);
 
 }

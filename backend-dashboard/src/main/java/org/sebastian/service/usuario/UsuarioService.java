@@ -17,4 +17,6 @@ public interface UsuarioService {
     public Usuario encontrarUsuario(Usuario usuario);
 
     Usuario encontrarUsuarioPorUsername(String username);
+
+
 }

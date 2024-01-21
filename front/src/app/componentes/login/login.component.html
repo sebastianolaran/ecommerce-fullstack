@@ -1,25 +1,25 @@
-<form [formGroup]="formularioIngreso" (ngSubmit)="onSubmit()">
+<div class="login-box">
 
-  <div>
-
-    <label for="username">Username:</label>
-    <input [ngClass]="{'is-invalid': hasErrors('username','required')}" type="text" id="username"
-           formControlName="username"><br>
-    @if (hasErrors('username', 'required')) {
-      <div class="text-danger">Nombre requerido</div>
-    }
-
-  </div>
-
-  <label for="password">Password:</label>
-  <input type="password" id="password" formControlName="password"><br>
-  @if (hasErrors('password', 'required')) {
-    <div class="text-danger">Contraseña requerido</div>
-  }
+  <img src="./assets/usuario.png" class="avatar">
+  <h1>Login</h1>
 
 
-  <button type="submit" class="btn btn-primary" [disabled]="formularioIngreso.invalid">Iniciar Sesión</button>
+  <form (ngSubmit)="onSubmit()" [formGroup]="formularioIngreso">
+
+    <label for="username">Username</label>
+    <input type="text" id="username" formControlName="username" placeholder="Username"><br>
 
 
-  <div>{{mostrarMensaje}}</div>
-</form>
+    <label for="password">Password</label>
+    <input type="password" id="password" formControlName="password" placeholder="Password"><br>
+
+
+    <button type="submit" class="btn btn-primary" [disabled]="formularioIngreso.invalid">Iniciar Sesión</button>
+
+    <div>{{ mostrarMensaje }}</div>
+
+    <a>Registrar</a>
+  </form>
+</div>
+
+

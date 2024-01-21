@@ -1,39 +1,30 @@
-import {Component, OnInit, signal} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {LoginService} from "../../core/service/login-service";
-import {NgClass} from "@angular/common";
-import {ActivatedRoute, Router} from '@angular/router';
-import { Usuario } from '../../interfaces/usuario';
+import {Component, OnInit} from '@angular/core';
+
+import {LoginService} from '../../core/service/login-service';
+import {Router} from '@angular/router';
+import {Usuario} from '../../interfaces/usuario';
+import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    NgClass
-  ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css'],
+  standalone: true,
+  imports: [ReactiveFormsModule],
 })
 export class LoginComponent implements OnInit {
-
-  formularioIngreso: FormGroup;
+  formularioIngreso = this.fb.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required]
+  });
   mostrarMensaje: string | undefined;
 
-
-  constructor(private fb: FormBuilder, private service: LoginService, private route: ActivatedRoute,
-              private router: Router) {
-    this.formularioIngreso = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-
-    })
+  constructor(private service: LoginService, private router: Router, private fb: FormBuilder) {
 
   }
 
   ngOnInit(): void {
-    // TODO document why this method 'ngOnInit' is empty
 
   }
 
@@ -43,41 +34,32 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.formularioIngreso);
-
-    // Get the values from the form controls
-    // @ts-ignore
-    const username = this.formularioIngreso.get("username").value;
-    // @ts-ignore
-    const password = this.formularioIngreso.get("password").value;
+    const usernameControl = this.formularioIngreso.get("username");
+    const passwordControl = this.formularioIngreso.get("password");
 
 
-    this.service.encontrarUsuarioPorUsername(username).subscribe(
-      (usuarioIngresado: Usuario) => {
-        if (usuarioIngresado) {
-          console.log("Existe el usuario");
-          console.log("Verificamos la contraseña");
-
-          if (usuarioIngresado.password === password) {
-            console.log("Contraseña ingresada correctamente");
-            // Redirige al usuario a /inicio
-            this.router.navigate(['/inicio']);
-          } else {
-            console.log("Contraseña incorrecta");
-            // Muestra un mensaje de contraseña incorrecta
-            this.mostrarMensaje = 'Contraseña incorrecta';
-          }
-        } else {
-          console.log("Usuario no existe");
-          // Muestra un mensaje de usuario no existente
-          this.mostrarMensaje = 'Usuario no existente, ¿quieres registrarte?';
+    if (usernameControl && usernameControl.value && passwordControl && passwordControl.value) {
+      const username = usernameControl.value.toLowerCase();
+      const password = passwordControl.value;
+      this.service.login(username, password).subscribe(
+        (response) => {
+          // Manejar la respuesta del servidor, por ejemplo, almacenar el token en el almacenamiento local.
+          console.log('Token de autenticación recibido:', response.token);
+        },
+        (error) => {
+          // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario.
+          console.error('Error al iniciar sesión:', error);
         }
-      },
-      (error) => {
-        console.error('Error retrieving user:', error);
-      }
-    );
+      );
+      this.resetForm();
+    }
+
   }
 
 
+  resetForm() {
+    // Resetea los campos del formulario
+    this.formularioIngreso.reset();
+  }
 }
+

@@ -2,9 +2,11 @@ package org.sebastian.web;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.sebastian.domain.Producto;
+import org.sebastian.Auth.AuthResponse;
+import org.sebastian.Auth.AuthService;
+import org.sebastian.Auth.LoginRequest;
+import org.sebastian.Auth.RegisterRequest;
 import org.sebastian.domain.Usuario;
-import org.sebastian.service.producto.ProductoService;
 import org.sebastian.service.usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +20,14 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/usuarios")
-public class ControladorUsuarios {
-
+public class ControladorLogin {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    private AuthService authService;
+
+
 
     // Obtener la lista de productos
     @GetMapping("/")
@@ -76,7 +81,6 @@ public class ControladorUsuarios {
     // Obtener un usuario por su ID o devolver null si no existe
 
 
-
     @GetMapping("/buscar/{username}")
     public ResponseEntity<Usuario> buscarUsuario(@PathVariable String username) {
         Usuario usuarioEncontrado = usuarioService.encontrarUsuarioPorUsername(username);
@@ -90,6 +94,18 @@ public class ControladorUsuarios {
         }
     }
 
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+
+        return ResponseEntity.ok(authService.login(request));
+
+    }
+
+    @PostMapping(value = "/register")
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(authService.register(request));
+    }
 
 
 }
