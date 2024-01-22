@@ -1,9 +1,9 @@
 package org.sebastian.service.usuario;
 
-import org.sebastian.domain.Producto;
 import org.sebastian.domain.Usuario;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UsuarioService {
 
@@ -16,7 +16,7 @@ public interface UsuarioService {
 
     public Usuario encontrarUsuario(Usuario usuario);
 
-    Usuario encontrarUsuarioPorUsername(String username);
+    Optional<Usuario> encontrarUsuarioPorUsername(String username);
 
 
 }

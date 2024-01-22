@@ -1,18 +1,17 @@
 package org.sebastian.service.usuario;
 
-import org.sebastian.dao.ProductoDAO;
 import org.sebastian.dao.UsuarioDAO;
-import org.sebastian.domain.Producto;
 import org.sebastian.domain.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl implements UsuarioService  {
 
 
     @Autowired
@@ -40,15 +39,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario encontrarUsuarioPorUsername(String username) {
-        List<Usuario> usuarios = (List<Usuario>) usuarioDAO.findAll();
-        Usuario usuarioEncontrado = null;
-        for ( Usuario usuario : usuarios){
-            if(Objects.equals(usuario.getUsername(), username)){
-                usuarioEncontrado = usuario;
-            }
-        }
-        return usuarioEncontrado;
-
+    @Transactional
+    public Optional<Usuario> encontrarUsuarioPorUsername(String username) {
+       return usuarioDAO.findByUsername(username);
     }
+
 }

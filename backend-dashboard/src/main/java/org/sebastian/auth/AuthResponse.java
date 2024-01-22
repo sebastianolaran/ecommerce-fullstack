@@ -1,4 +1,5 @@
-package org.sebastian.Auth;
+package org.sebastian.auth;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +10,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterRequest {
-    String username;
-    String password;
-
+public class AuthResponse {
+    String token;
 }
