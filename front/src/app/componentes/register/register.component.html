@@ -1,0 +1,36 @@
+<div class="box">
+  <div class="registration-box">
+
+    <!-- Add any registration-specific styling or content -->
+    <h1>Registro</h1>
+
+    <form (ngSubmit)="onRegister()" [formGroup]="formularioRegistro">
+
+      <label for="username">Username</label>
+      <input type="text" id="username" formControlName="username" placeholder="Username"><br>
+
+      <label for="email">Email</label>
+      <input type="text" id="email" formControlName="email" placeholder="Email"><br>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password" placeholder="Password"><br>
+
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password"
+             (blur)="formularioRegistro.get('confirmPassword')?.markAsTouched()"><br>
+
+
+      @if(formularioRegistro.hasError('passwordMismatch') && (formularioRegistro.get('confirmPassword')?.dirty ||
+      formularioRegistro.get('confirmPassword')?.touched)){
+      <div >
+        Las contraseñas no coinciden.
+      </div>
+      }
+      <button type="submit" class="btn btn-primary" [disabled]="formularioRegistro.invalid">Registrarse</button>
+
+      <div>{{ mostrarMensaje }}</div>
+
+
+    </form>
+  </div>
+</div>

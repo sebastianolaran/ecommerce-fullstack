@@ -1,0 +1,65 @@
+.main{
+
+  border: 1px red solid;
+}
+
+.main .pantalla{
+  border: 1px solid saddlebrown;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #F5F5F5;
+
+}
+
+
+
+
+
+.boxes {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+
+.conteinerBox{
+  display: flex;
+  justify-content: space-around;
+  gap: 0.5rem;
+  padding: 2rem 0;
+}
+
+
+
+.box_info{
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 8px; /* Añade bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Añade una sombra sutil */
+
+  width: 15rem;
+  height: 10rem;
+}
+
+
+.fecha{
+  font-size: 2rem;
+  color: #11235A;
+}
+
+
+.valor{
+  color: aqua;
+  font-size: 3rem;
+}
+
+
+
+
+

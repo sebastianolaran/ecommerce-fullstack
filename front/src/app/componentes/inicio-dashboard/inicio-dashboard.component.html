@@ -1,0 +1,92 @@
+<div class="main">
+  <app-nav-bar></app-nav-bar>
+
+  <div class="pantalla">
+    <h1> Bienvenido Sebastian Olaran</h1>
+
+    <div class="boxes">
+
+      <div class="box">
+        <h2>Ordenes</h2>
+
+        <div class="conteinerBox">
+
+          <div class="box_info">
+
+
+            <h4 class="fecha">Hoy</h4>
+
+            <h3 class="valor">{{ ordenResponse.ventasDiarias }}</h3>
+
+
+          </div>
+
+          <div class="box_info">
+
+            <h4 class="fecha">Semana</h4>
+
+            <h3 class="valor">{{ ordenResponse.ventasSemanal }}</h3>
+
+
+          </div>
+
+          <div class="box_info">
+
+            <h4 class="fecha">Mes</h4>
+
+            <h3 class="valor">{{ ordenResponse.ventasMensual }}</h3>
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+      <div class="box">
+        <h2>Resumen</h2>
+
+        <div class="conteinerBox">
+
+          <div class="box_info">
+
+            <h4 class="fecha">Hoy</h4>
+
+            <h3 class="valor"> ${{ ordenResponse.montoDiario }}</h3>
+
+
+          </div>
+
+          <div class="box_info">
+
+            <h4 class="fecha">Semana</h4>
+
+            <h3 class="valor">$ {{ ordenResponse.montoSemanal }}</h3>
+
+
+          </div>
+
+          <div class="box_info">
+
+            <h4 class="fecha">Mes</h4>
+
+            <h3 class="valor">$ {{ ordenResponse.montoMensual }}</h3>
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+

@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  padding: 0;
+
+  background-size: cover;
+  font-family: sans-serif;
+  height: 100vh;
+}
+
+
+.box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+
+.registration-box {
+  width: 30rem;
+  background: #000;
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  padding: 70px 30px;
+
+}
+
+.login-box .avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  position: absolute;
+  top: -56px;
+  left: calc(50% - 50px);
+}
+
+.registration-box h1 {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.registration-box label {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  display: block;
+}
+
+.registration-box input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.registration-box input[type="text"], .registration-box input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+
+
