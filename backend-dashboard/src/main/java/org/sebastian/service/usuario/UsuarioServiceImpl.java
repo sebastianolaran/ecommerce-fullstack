@@ -40,8 +40,8 @@ public class UsuarioServiceImpl implements UsuarioService  {
 
     @Override
     @Transactional
-    public Optional<Usuario> encontrarUsuarioPorUsername(String username) {
-       return usuarioDAO.findByUsername(username);
+    public Optional<Usuario> encontrarUsuarioPorEmail(String email) {
+       return usuarioDAO.findByEmail(email);
     }
 
 }

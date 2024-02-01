@@ -26,14 +26,16 @@ export class LoginService {
     return this.http.get<Usuario>(`${this.apiUrl}/buscar/${usuario.id_usuario}`)
   }
 
-  encontrarUsuarioPorUsername( username : string): Observable<Usuario>{
+  encontrarUsuarioPorUsername(username: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}/buscar/${username}`)
   }
 
-  login(username: string, password: string): Observable<any> {
-    const credentials = { username, password };
+  login(email: string, password: string): Observable<any> {
+    const credentials = {email, password};
 
     // Realiza la solicitud POST al endpoint de inicio de sesión en tu servidor
     return this.http.post<any>(`${this.apiUrl}/login`, credentials);
+
+  }
 
 }

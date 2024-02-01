@@ -16,7 +16,7 @@ public interface UsuarioService {
 
     public Usuario encontrarUsuario(Usuario usuario);
 
-    Optional<Usuario> encontrarUsuarioPorUsername(String username);
+    Optional<Usuario> encontrarUsuarioPorEmail(String email);
 
 
 }

@@ -1,7 +1,12 @@
 package org.sebastian.web;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.sebastian.auth.AuthResponse;
+import org.sebastian.auth.AuthService;
+import org.sebastian.auth.LoginRequest;
+import org.sebastian.auth.RegisterRequest;
 import org.sebastian.domain.Usuario;
 import org.sebastian.service.usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +19,13 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/usuarios")
 public class ControladorLogin {
 
+
+    private final AuthService authService;
 
     @Autowired
     UsuarioService usuarioService;
@@ -67,6 +75,28 @@ public class ControladorLogin {
         } else {
             // Si no encuentra el producto, retorna un código de estado NOT_FOUND
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping(value = "/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+        try {
+            // Asegúrate de que authService esté inicializado antes de llamar a los métodos de login
+            return ResponseEntity.ok(authService.login(request));
+        } catch (Exception e) {
+            log.error("Error durante el inicio de sesión", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping(value = "/register")
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
+        try {
+            // Asegúrate de que authService esté inicializado antes de llamar a los métodos de registro
+            return ResponseEntity.ok(authService.register(request));
+        } catch (Exception e) {
+            log.error("Error durante el registro", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

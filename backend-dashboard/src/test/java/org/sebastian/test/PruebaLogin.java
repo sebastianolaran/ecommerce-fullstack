@@ -39,7 +39,7 @@ public class PruebaLogin {
     @Test
     public void pruebaLogin() {
         // Configura el comportamiento esperado del UserRepository y JwtService según tus necesidades
-        when(userRepository.encontrarUsuarioPorUsername(anyString())).thenReturn(Optional.of(new Usuario()));
+        when(userRepository.encontrarUsuarioPorEmail(anyString())).thenReturn(Optional.of(new Usuario()));
         when(jwtService.getToken(any(Usuario.class))).thenReturn("TOKEN_GENERADO");
 
         // Ejecuta el método de login con un LoginRequest (puedes crear uno para la prueba)

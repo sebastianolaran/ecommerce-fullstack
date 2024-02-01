@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {LoginService} from '../../core/service/login-service';
-import {Router} from '@angular/router';
-import {Usuario} from '../../interfaces/usuario';
+import {Router, RouterLink} from '@angular/router';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 
 
@@ -11,11 +10,11 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,RouterLink],
 })
 export class LoginComponent implements OnInit {
   formularioIngreso = this.fb.group({
-    username: ['', Validators.required],
+    email: ['', Validators.required],
     password: ['', Validators.required]
   });
   mostrarMensaje: string | undefined;
@@ -34,17 +33,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    const usernameControl = this.formularioIngreso.get("username");
+    const emailControl = this.formularioIngreso.get("email");
     const passwordControl = this.formularioIngreso.get("password");
 
-
-    if (usernameControl && usernameControl.value && passwordControl && passwordControl.value) {
-      const username = usernameControl.value.toLowerCase();
+    if (emailControl && emailControl.value && passwordControl && passwordControl.value) {
+      const email = emailControl.value;
       const password = passwordControl.value;
-      this.service.login(username, password).subscribe(
+      this.service.login(email, password).subscribe(
         (response) => {
           // Manejar la respuesta del servidor, por ejemplo, almacenar el token en el almacenamiento local.
           console.log('Token de autenticación recibido:', response.token);
+          this.router.navigate(['/inicio']);
         },
         (error) => {
           // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario.
@@ -54,7 +53,8 @@ export class LoginComponent implements OnInit {
       this.resetForm();
     }
 
-  }
+
+}
 
 
   resetForm() {

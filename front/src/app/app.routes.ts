@@ -3,14 +3,17 @@ import {ProductosComponent} from "./pages/productos/productos.component";
 import {ConfiguracionesComponent} from "./pages/configuraciones/configuraciones.component";
 import {OrdenesComponent} from "./pages/ordenes/ordenes.component";
 import {LoginComponent} from "./componentes/login/login.component";
-import {InicioDashboardComponent} from "./pages/inicio-dashboard/inicio-dashboard.component";
+
+import { RegisterComponent } from './componentes/register/register.component';
+import { InicioDashboardComponent } from './componentes/inicio-dashboard/inicio-dashboard.component';
 
 export const routes: Routes = [
   {path: '',component : LoginComponent},
   {path: 'inicio',component : InicioDashboardComponent },
   {path: "productos",component: ProductosComponent },
   {path: "config",component: ConfiguracionesComponent },
-  {path: "ordenes",component: OrdenesComponent }
+  {path: "ordenes",component: OrdenesComponent },
+  {path: "registrar",component: RegisterComponent }
 ];
 
 

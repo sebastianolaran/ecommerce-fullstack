@@ -1,17 +1,17 @@
 package org.sebastian.auth;
 
-import org.sebastian.dao.UsuarioDAO;
+
 import org.sebastian.domain.Role;
 import org.sebastian.domain.Usuario;
 import org.sebastian.jwt.JwtService;
 import org.sebastian.service.usuario.UsuarioService;
-import org.sebastian.service.usuario.UsuarioServiceImpl;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.AuthenticationException;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 
 
 import lombok.RequiredArgsConstructor;
@@ -26,29 +26,48 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        Usuario user = userRepository.encontrarUsuarioPorUsername(request.getUsername()).orElseThrow();
-        String token = jwtService.getToken(user);
-        return AuthResponse.builder()
-                .token(token)
-                .build();
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+            Usuario user = userRepository.encontrarUsuarioPorEmail(request.getEmail()).orElseThrow();
 
+            String token = jwtService.getToken(user);
+            return AuthResponse.builder()
+                    .token(token)
+                    .mensaje("Login Correcto")
+                    .rol(String.valueOf(user.getRol()))
+                    .build();
+        } catch (AuthenticationException e) {
+            // Manejar la excepción de autenticación fallida
+            return AuthResponse.builder()
+                    .mensaje("Login Incorrecto")
+                    .build();
+        }
     }
 
+
     public AuthResponse register(RegisterRequest request) {
-        Usuario user = Usuario.builder()
-                .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .email(request.getEmail())
-                .rol(Role.USER)
-                .build();
+        try {
+            Usuario user = Usuario.builder()
+                    .username(request.getUsername())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .email(request.getEmail())
+                    .rol(Role.USER)
+                    .build();
 
-        userRepository.guardar(user);
+            userRepository.guardar(user);
 
-        return AuthResponse.builder()
-                .token(jwtService.getToken(user))
-                .build();
-
+            String token = jwtService.getToken(user);
+            return AuthResponse.builder()
+                    .token(token)
+                    .mensaje("Registro Exitoso")
+                    .rol(String.valueOf(user.getRol()))
+                    .build();
+        } catch (Exception e) {
+            // Manejar la excepción de registro fallido
+            return AuthResponse.builder()
+                    .mensaje("Error en el Registro: " + e.getMessage())
+                    .build();
+        }
     }
 
 }
