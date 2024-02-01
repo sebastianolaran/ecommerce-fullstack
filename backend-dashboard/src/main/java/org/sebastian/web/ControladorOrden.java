@@ -1,22 +1,15 @@
 package org.sebastian.web;
 
 
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-
 import org.sebastian.domain.Orden;
-
-import org.sebastian.domain.Producto;
 import org.sebastian.service.orden.OrdenService;
-
 import org.sebastian.service.orden.http.OrdenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,16 +49,13 @@ public class ControladorOrden {
     }
 
 
-
     @GetMapping("/info")
     public OrdenResponse obtenerOrdenesEnFecha() throws ParseException {
-            Date fechaActual = new Date();
-            // Guarda el producto y retorna un código de estado CREATED
-            OrdenResponse ordenResponse = ordenService.obtenerOrdenesEnFechas(fechaActual);
-            return ordenResponse;
+        Date fechaActual = new Date();
+
+        return ordenService.obtenerOrdenesEnFechas(fechaActual);
 
     }
-
 
 
 }
