@@ -1,4 +1,42 @@
-@if (productosResultados$ | async; as resultObject){
+@if (productosResultados$ | async; as resultObject) {
+
+
+  <div class="main">
+
+    <app-nav-bar></app-nav-bar>
+
+
+    <div className='inicial'>
+
+      <button className='add'>Añadir Producto</button>
+
+      <div className='productos'>
+        <h3>Producto</h3>
+        <div className='productos-info'>
+          @for (producto of resultObject; track producto.id_producto) {
+            <div className='producto'>
+              <p className='nombre-producto'>{{ producto.nombre }}</p>
+              <div className='botones'>
+                <button className='edit'>Edit</button>
+                <button className='delete'>Delete</button>
+              </div>
+            </div>
+            <div class='producto' id="{{producto.id_producto}}">
+              <p class='nombre-producto'>Iphone</p>
+              <div class='botones'>
+                <button class='edit'>Edit</button>
+                <button class='delete' onclick="eliminarProducto({{producto.id_producto}})">Delete</button>
+              </div>
+            </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  <h1>Hola</h1>
+  <router-outlet></router-outlet>
+}
 
 
 <div class="main">
@@ -6,26 +44,31 @@
   <app-nav-bar></app-nav-bar>
 
 
-  <div className='inicial'>
+  <div class='inicial'>
 
-    <button className='add'>Añadir Producto</button>
+    <button class='add'>Añadir Producto</button>
 
-    <div className='productos'>
+    <div class='productos'>
       <h3>Producto</h3>
-      <div className='productos-info'>
-        @for (producto of resultObject ; track producto.id_producto) {
-          <div className='producto'>
-            <p className='nombre-producto'>{{ producto.nombre }}</p>
-            <div className='botones'>
-              <button className='edit'>Edit</button>
-              <button className='delete'>Delete</button>
-            </div>
+      <div class='productos-info'>
+        <div class='producto'>
+          <p class='nombre-producto'>Iphone</p>
+          <div class='botones'>
+            <button class='edit'>Edit</button>
+            <button class='delete'>Delete</button>
           </div>
-        }
+        </div>
+        <div class='producto'>
+          <p class='nombre-producto'>Iphone</p>
+          <div class='botones'>
+            <button class='edit'>Edit</button>
+            <button class='delete'>Delete</button>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
-</div>
 
-<router-outlet></router-outlet>
-}
+
+

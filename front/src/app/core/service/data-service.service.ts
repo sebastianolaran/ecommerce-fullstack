@@ -20,4 +20,10 @@ export class DataService {
   }
 
 
+  eliminarProducto(id_producto : String):  Observable<any>{
+    const credencial = {id_producto}
+    return this.http.post<any>(`${this.apiUrl}/eliminar`,credencial)
+  }
+
+
 }

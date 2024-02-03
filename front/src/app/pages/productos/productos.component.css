@@ -1,4 +1,31 @@
-.inicial{
+
+
+.main .inicial{
+  border: 1px solid red;
   flex: 1;
-  border: 1px red solid;
+  display: flex;
+  flex-direction: column;
+  background-color: #F5F5F5;
+
+}
+
+.add{
+  width: 25vh;
+}
+
+
+.productos{
+  background-color: red;
+}
+
+.producto{
+  padding: 0.5rem 0;
+  border: 1px  red solid;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.botones button{
+  margin-left: 2rem;
 }

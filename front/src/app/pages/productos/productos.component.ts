@@ -18,7 +18,6 @@ import {HttpClient} from "@angular/common/http";
 })
 
 
-
 export class ProductosComponent implements OnInit {
 
   public productosResultados$!: Observable<Producto[]>
@@ -34,5 +33,12 @@ export class ProductosComponent implements OnInit {
       return EMPTY;
     }))
   }
+
+
+  eliminarProducto(id_producto: string): void {
+    this.service.eliminarProducto(id_producto)
+  }
+
+
 
 }
