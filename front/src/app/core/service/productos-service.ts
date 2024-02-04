@@ -20,9 +20,21 @@ export class DataService {
   }
 
 
-  eliminarProducto(id_producto : String):  Observable<any>{
+  eliminarProducto(id_producto : number):  Observable<any>{
     const credencial = {id_producto}
     return this.http.post<any>(`${this.apiUrl}/eliminar`,credencial)
+  }
+
+
+  agregarProducto(nombre: string | null, precio: string | null, categoria: string | null, descripcion: string | null): Observable<any>{
+    const credencial = {nombre,precio,categoria,descripcion}
+    console.log(credencial)
+    return this.http.post<any>(`${this.apiUrl}/agregar`,credencial)
+  }
+
+
+  obtenerProducto(id_producto: string | undefined) : Observable<Producto>{
+    return this.http.get<Producto>(`${this.apiUrl}/buscar/${id_producto}`)
   }
 
 

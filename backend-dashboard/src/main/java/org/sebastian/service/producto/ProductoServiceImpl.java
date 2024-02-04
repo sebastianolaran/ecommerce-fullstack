@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -27,12 +28,22 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public void eliminar(Producto producto) {
-        productoDAO.delete(producto);
+    public void eliminar(String id_producto) {
+
+        Optional<Producto> productoOptional = productoDAO.findById(Long.valueOf(id_producto));
+
+        Producto producto = productoOptional.orElse(null); // or provide a default value
+
+        if (producto != null) {
+            productoDAO.delete(producto);
+        } else {
+            ///
+        }
+
     }
 
     @Override
-    public Producto encontrarProducto(Producto producto) {
-        return productoDAO.findById(producto.getId_producto()).orElse(null);
+    public Producto encontrarProducto(Long id_producto) {
+        return productoDAO.findById(id_producto).orElse(null);
     }
 }

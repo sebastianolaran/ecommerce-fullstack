@@ -3,6 +3,7 @@ package org.sebastian.domain;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 
@@ -22,8 +23,9 @@ public class Producto {
 
     @NotEmpty
     private String nombre;
-    @NotEmpty
-    private String precio;
+
+    @NotNull
+    private int precio;
 
     @NotEmpty
 
@@ -31,4 +33,16 @@ public class Producto {
 
 
     private String descripcion;
+
+
+    public Producto() {
+        // Default constructor with no arguments
+    }
+
+    public Producto(String nombre, int precio, String categoria, String descripcion) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.categoria = categoria;
+        this.descripcion = descripcion;
+    }
 }

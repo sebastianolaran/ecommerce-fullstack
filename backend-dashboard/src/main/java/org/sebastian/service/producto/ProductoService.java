@@ -12,8 +12,8 @@ public interface ProductoService {
 
     public void guardar(Producto producto);
 
-    public void eliminar(Producto producto);
+    public void eliminar(String id_producto);
 
-    public Producto encontrarProducto(Producto producto);
 
+    public Producto encontrarProducto(Long id_producto);
 }

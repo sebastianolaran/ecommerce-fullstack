@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {AsyncPipe} from "@angular/common";
-import {DataService} from "../../core/service/data-service.service";
+import {DataService} from "../../core/service/productos-service";
 import {catchError, EMPTY, Observable} from "rxjs";
 import {Producto} from "../../interfaces/producto";
 
-import {RouterLink, RouterOutlet} from "@angular/router";
+import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {NavBarComponent} from "../../componentes/nav-bar/nav-bar.component";
-import {HttpClient} from "@angular/common/http";
+
+import  {Location} from "@angular/common";
 
 @Component({
   selector: 'app-productos',
@@ -23,7 +24,7 @@ export class ProductosComponent implements OnInit {
   public productosResultados$!: Observable<Producto[]>
   public errorMessage!: string;
 
-  constructor(private service: DataService) {
+  constructor(private service: DataService,private router: Router,private location: Location) {
 
   }
 
@@ -35,10 +36,29 @@ export class ProductosComponent implements OnInit {
   }
 
 
-  eliminarProducto(id_producto: string): void {
-    this.service.eliminarProducto(id_producto)
+  eliminarProducto(id_producto: number): void {
+    this.service.eliminarProducto(id_producto).subscribe(
+      response => {
+        console.log('Successfully deleted product:', response);
+        this.location.go(this.location.path()); // Recarga la página actual
+      },
+      error => {
+        console.error('Error deleting product:', error);
+        // Handle errors here
+      }
+    );
   }
 
+
+
+  agregarProducto(){
+    this.router.navigate(['/productos/agregar']);
+  }
+
+
+  editarProducto(id_producto: number){
+    this.router.navigate(['/productos/editar'],{ queryParams: { id: id_producto  } })
+  }
 
 
 }
