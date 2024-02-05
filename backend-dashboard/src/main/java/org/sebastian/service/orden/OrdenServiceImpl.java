@@ -2,6 +2,7 @@ package org.sebastian.service.orden;
 
 import org.sebastian.dao.OrdenDAO;
 import org.sebastian.domain.Orden;
+import org.sebastian.domain.Producto;
 import org.sebastian.service.orden.http.OrdenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrdenServiceImpl implements OrdenService {
@@ -31,8 +33,16 @@ public class OrdenServiceImpl implements OrdenService {
     }
 
     @Override
-    public void eliminar(Orden orden) {
-        ordenDAO.delete(orden);
+    public void eliminar(String id_orden) {
+        Optional<Orden> ordenOptional = ordenDAO.findById(Long.valueOf(id_orden));
+
+        Orden orden = ordenOptional.orElse(null); // or provide a default value
+
+        if (orden != null) {
+            ordenDAO.delete(orden);
+        } else {
+            ///
+        }
     }
 
     @Override

@@ -1,9 +1,13 @@
 package org.sebastian.service.producto;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.sebastian.dao.ProductoDAO;
 import org.sebastian.domain.Producto;
 
+import org.sebastian.service.producto.http.EditarRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,6 +45,22 @@ public class ProductoServiceImpl implements ProductoService {
         }
 
     }
+
+    public void editarProducto(EditarRequest request) {
+        // Recuperar la entidad existente
+        Producto producto = productoDAO.findById(Long.valueOf(request.getId_producto())).orElseThrow(() -> new EntityNotFoundException("No se encontró el producto con ID: " + request.getId_producto()));
+
+        // Actualizar los campos
+        producto.setCategoria(request.getCategoria());
+        producto.setDescripcion(request.getDescripcion());
+        producto.setPrecio(Integer.parseInt(request.getPrecio()));
+
+        // Guardar la entidad actualizada
+        productoDAO.save(producto);
+    }
+
+
+
 
     @Override
     public Producto encontrarProducto(Long id_producto) {

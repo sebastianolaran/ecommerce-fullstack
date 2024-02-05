@@ -1,1 +1,28 @@
-<p>editar-producto works!</p>
+<div class="box">
+  <div class="registration-box">
+
+    <h1>Registro</h1>
+
+    <form [formGroup]="formularioEdicion" (submit)="editarProducto()">
+
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" formControlName="nombre" placeholder="Nombre del Producto"><br>
+
+      <label for="precio">Precio</label>
+      <input type="text" id="precio" formControlName="precio" placeholder="Precio"><br>
+
+      <label for="categoria">Categoria</label>
+      <select id="categoria" formControlName="categoria" placeholder="Categoria">
+        @for (opcion of opcionesEnum; track opcion) {
+          <option [value]="opcion">{{ opcion }}</option>
+        }
+      </select>
+
+      <label for="descripcion">Confirm Password</label>
+      <input type="text" id="descripcion" formControlName="descripcion" placeholder="Descripcion">
+
+      <button type="submit" class="btn btn-primary" [disabled]="formularioEdicion.invalid">Modificar Producto</button>
+
+    </form>
+  </div>
+</div>

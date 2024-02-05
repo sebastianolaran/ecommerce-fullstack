@@ -16,7 +16,7 @@ public interface OrdenService {
 
     public void guardar(Orden orden);
 
-    public void eliminar(Orden orden);
+    public void eliminar(String orden);
 
     OrdenResponse obtenerOrdenesEnFechas(Date date) throws ParseException;
 }

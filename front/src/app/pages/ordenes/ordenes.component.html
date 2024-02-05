@@ -1,4 +1,44 @@
-<p>ordenes works!</p>
+@if (ordenesResultados | async; as resultObject) {
 
 
-<router-outlet></router-outlet>
+  <div class="main">
+
+    <app-nav-bar></app-nav-bar>
+
+
+    <div class='inicial'>
+
+      <button class='add'>Añadir Orden</button>
+
+      <div class='ordenes'>
+        <h3>Ordenes</h3>
+        <div class='ordenes-info'>
+          @for (orden of resultObject; track orden.id_orden) {
+            <div class='orden'>
+              <p class='id_orden'>{{ orden.id_orden }}</p>
+              <p class='precio-orden'>{{ orden.monto }}</p>
+
+              <div class='botones'>
+                <button class='info' (click)="verOrden(orden.id_orden)">Info</button>
+                <button class='delete' (click)="borrarOrden(orden.id_orden)">Delete</button>
+              </div>
+              @if (mostrarDetallesFlag && orden.id_orden === ordenSeleccionada) {
+                <p>Orden numero: {{ orden.id_orden }}</p>
+                <p>Monto: {{ orden.monto }}</p>
+                <p>Productos :</p>
+                @for (producto of obtenerArrayIdsProductos(orden.productos); track producto) {
+                  <div class='producto'>
+                    <p class='nombre-producto'>{{ producto }}</p>
+                  </div>
+                }
+              }
+            </div>
+
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+}
+

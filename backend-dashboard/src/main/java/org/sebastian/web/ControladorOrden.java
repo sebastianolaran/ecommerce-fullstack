@@ -5,8 +5,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sebastian.domain.Orden;
+import org.sebastian.domain.Producto;
 import org.sebastian.service.orden.OrdenService;
 import org.sebastian.service.orden.http.OrdenResponse;
+import org.sebastian.service.producto.http.DeleteRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +57,19 @@ public class ControladorOrden {
 
         return ordenService.obtenerOrdenesEnFechas(fechaActual);
 
+    }
+
+    @PostMapping("/eliminar")
+    public ResponseEntity<Orden> eliminar(@RequestBody DeleteRequest request) {
+        Long orden_id = request.getId_producto();
+        if (orden_id != null) {
+            // Si encuentra el producto, lo elimina y retorna un código de estado OK
+            ordenService.eliminar(String.valueOf(orden_id));
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            // Si no encuentra el producto, retorna un código de estado NOT_FOUND
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 

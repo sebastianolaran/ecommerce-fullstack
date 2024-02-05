@@ -1,0 +1,9 @@
+
+Ktypescript:S1128"*Remove this unused import of 'catchError'.(¸¿Ú¨üÿÿÿÿ
+Ftypescript:S1128"%Remove this unused import of 'EMPTY'.(¸¿Ú¨üÿÿÿÿ
+×typescript:S1874&"µ'(next?: ((value: Producto) => void) | null | undefined, error?: ((error: any) => void) | null | undefined, complete?: (() => void) | null | undefined): Subscription' is deprecated.(¾ó´Áþÿÿÿÿ
+~typescript:S6582E"[Prefer using an optional chain expression instead, as it's more concise and easier to read.(‡ûÎõ8”ïÉ¸×1
+~typescript:S6582E"[Prefer using an optional chain expression instead, as it's more concise and easier to read.(‡ûÎõ8”ïÉ¸×1
+~typescript:S6582E"[Prefer using an optional chain expression instead, as it's more concise and easier to read.(‡ûÎõ8”ïÉ¸×1
+~typescript:S6582E"[Prefer using an optional chain expression instead, as it's more concise and easier to read.(‡ûÎõ8•ïÉ¸×1
+Ùtypescript:S1874K"°'(next?: ((value: any) => void) | null | undefined, error?: ((error: any) => void) | null | undefined, complete?: (() => void) | null | undefined): Subscription' is deprecated.(š„¡±ýÿÿÿÿ8•ïÉ¸×1

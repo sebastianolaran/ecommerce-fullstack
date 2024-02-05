@@ -1,14 +1,10 @@
 package org.sebastian.web;
 
-import jakarta.validation.Valid;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.sebastian.auth.AuthResponse;
-import org.sebastian.auth.LoginRequest;
 import org.sebastian.domain.Producto;
 import org.sebastian.service.producto.ProductoService;
-import org.sebastian.service.producto.http.AgregarRequest;
-import org.sebastian.service.producto.http.AgregarResponse;
-import org.sebastian.service.producto.http.DeleteRequest;
+import org.sebastian.service.producto.http.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +34,7 @@ public class ControladorInicio {
     // Guardar un nuevo producto
     @PostMapping("/agregar")
     public AgregarResponse guardar(@RequestBody AgregarRequest request, Errors errors) {
-        Producto producto = new Producto(request.getNombre(),parseInt(request.getPrecio()),request.getCategoria(),request.getDescripcion());
+        Producto producto = new Producto(request.getNombre(), parseInt(request.getPrecio()), request.getCategoria(), request.getDescripcion());
         if (errors.hasErrors()) {
             // Si hay errores de validación, retorna un código de estado BAD_REQUEST
 
@@ -55,7 +51,7 @@ public class ControladorInicio {
     // Obtener un producto para editar por su ID
     @GetMapping("/buscar/{id_producto}")
     public ResponseEntity<Producto> encontrarProducto(@PathVariable Long id_producto) {
-        Producto producto= productoService.encontrarProducto(id_producto);
+        Producto producto = productoService.encontrarProducto(id_producto);
         if (producto != null) {
             // Si encuentra el producto, retorna el producto y un código de estado OK
             return new ResponseEntity<>(producto, HttpStatus.OK);
@@ -68,7 +64,19 @@ public class ControladorInicio {
     }
 
 
+    @PostMapping("/editar")
+    public ResponseEntity<EditarResponse> editarProducto(@RequestBody EditarRequest request) {
+        try {
+            productoService.editarProducto(request);
+            return ResponseEntity.ok(EditarResponse.builder().mensaje("Producto editado correctamente.").build());
 
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body(EditarResponse.builder().mensaje("Error: El ID del producto no es válido.").build());
+
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(EditarResponse.builder().mensaje("Error inesperado al editar el producto. Detalles: " + e.getMessage()).build());
+        }
+    }
 
 
     // Eliminar un producto por su ID

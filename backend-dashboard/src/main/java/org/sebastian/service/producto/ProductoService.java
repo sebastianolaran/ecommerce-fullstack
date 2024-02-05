@@ -1,7 +1,8 @@
 package org.sebastian.service.producto;
 
 import org.sebastian.domain.Producto;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.sebastian.service.producto.http.EditarRequest;
+
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface ProductoService {
 
 
     public Producto encontrarProducto(Long id_producto);
+
+    public void editarProducto(EditarRequest request);
 }
