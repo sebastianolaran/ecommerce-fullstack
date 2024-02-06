@@ -26,7 +26,6 @@ public class Orden {
     private Date fecha;
 
 
-    private String productos;
 
     private String estado;
 

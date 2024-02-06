@@ -8,7 +8,7 @@
 
     <div class='inicial'>
 
-      <button class='add'>Añadir Orden</button>
+      <button class='add' (click)="agregarOrden()">Añadir Orden</button>
 
       <div class='ordenes'>
         <h3>Ordenes</h3>
@@ -26,9 +26,11 @@
                 <p>Orden numero: {{ orden.id_orden }}</p>
                 <p>Monto: {{ orden.monto }}</p>
                 <p>Productos :</p>
-                @for (producto of obtenerArrayIdsProductos(orden.productos); track producto) {
+                  @for (producto of productosDeOrden; track producto) {
                   <div class='producto'>
-                    <p class='nombre-producto'>{{ producto }}</p>
+                    <p class='nombre-producto'>{{ producto.nombre }}</p>
+                    <p>{{producto.precio}}</p>
+                    <p>Cantidad : {{producto.cantidad}}</p>
                   </div>
                 }
               }

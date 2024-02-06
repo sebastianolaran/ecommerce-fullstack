@@ -1,0 +1,19 @@
+<h2>Formulario de Productos</h2>
+
+<form>
+   <fieldset>
+      <legend>Productos</legend>
+      @for (opcion of opcionesEnum; track opcion) {
+         <div>
+         <label>
+            <input type="checkbox" [(ngModel)]="seleccionados[opcion]" name="{{opcion}}" [value]="opcion">
+            {{ opcion }}
+         </label>
+         <input type="number" [(ngModel)]="cantidades[opcion]" name="{{opcion}}" placeholder="Cantidad"
+                >
+         </div>
+      }
+   </fieldset>
+
+   <button type="button" [disabled]="!puedoEnviar()" (click)="agregarCantidades()">Agregar Cantidades</button>
+</form>

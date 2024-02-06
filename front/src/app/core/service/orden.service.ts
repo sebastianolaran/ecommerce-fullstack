@@ -24,6 +24,11 @@ export class OrdenService {
   }
 
 
+  obtenerProductos(id_orden: number){
+    const credencial = {id_orden}
+    console.log(credencial);
+    return this.http.post<any>(`${this.apiUrl}/productos`,credencial)
+  }
 
 
 }

@@ -6,9 +6,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sebastian.domain.Orden;
 import org.sebastian.domain.Producto;
+import org.sebastian.interfaces.ProductoConCantidad;
+import org.sebastian.service.detalle_orden.DetalleOrdenService;
 import org.sebastian.service.orden.OrdenService;
 import org.sebastian.service.orden.http.OrdenResponse;
 import org.sebastian.service.producto.http.DeleteRequest;
+import org.sebastian.service.producto.http.ProductoOrdenRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +32,10 @@ public class ControladorOrden {
 
     @Autowired
     OrdenService ordenService;
+
+
+    @Autowired
+    DetalleOrdenService detalleOrdenService;
 
 
     @GetMapping("/")
@@ -70,6 +77,16 @@ public class ControladorOrden {
             // Si no encuentra el producto, retorna un código de estado NOT_FOUND
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+
+    @PostMapping("/productos")
+    public ResponseEntity<List<ProductoConCantidad>> obtenerProductos(@RequestBody ProductoOrdenRequest request) {
+        Long orden_id = request.getId_orden();
+
+        List<ProductoConCantidad> productos = detalleOrdenService.obtenerProductos(orden_id);
+        return new ResponseEntity<>(productos, HttpStatus.OK);
+
     }
 
 
