@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Categorias} from "../../interfaces/categorias";
 import {FormBuilder, FormsModule, Validators} from "@angular/forms";
 import {DataService} from "../../core/service/productos-service";
-import {Router} from "@angular/router";
+import {Producto, ProductoConCantidad} from "../../interfaces/producto";
+import {ActivatedRoute, Router} from "@angular/router";
+import {catchError, EMPTY, Observable} from "rxjs";
 
 @Component({
    selector: 'app-agregar-orden',
@@ -15,24 +17,46 @@ import {Router} from "@angular/router";
 })
 export class AgregarOrdenComponent {
 
-   opcionesEnum = ['producto1', 'producto2', 'producto3']; // Ajusta según tus opciones
-   seleccionados: { [key: string]: boolean } = {};
-   cantidades: { [key: string]: number } = {};
+   public productosResultados$!: Observable<Producto[]>
+   productoSeleccionado: string = '';
+   cantidadSeleccionada: number = 0;
+   opcionesEnum: string[] = ['Producto 1', 'Producto 2', 'Producto 3'];
+   productosAgregados: ProductoConCantidad[] = [];
+
+
+   constructor(private service: DataService, private router: Router) {
+
+   }
+
+
+   ngOnInit(): void {
+      this.productosResultados = this.service.obtenerProductos().pipe(catchError((error: string) => {
+         return EMPTY;
+      }))
+   }
+
+   agregarProducto(): void {
+      if (this.productoSeleccionado && this.cantidadSeleccionada > 0) {
+         //Busco producto con nombre
+         const producto = this.service.obtenerProducto()
+         const nuevoProducto: ProductoConCantidad = {
+            nombre: this.productoSeleccionado,
+            cantidad: this.cantidadSeleccionada
+         }; // No es necesario convertir a ProductoConCantidad
+         this.productosAgregados.push(nuevoProducto);
+         // Limpiar campos después de agregar el producto si es necesario
+         this.productoSeleccionado = '';
+         this.cantidadSeleccionada = 0;
+      }
+   }
 
    puedoEnviar(): boolean {
-      for (const opcion of this.opcionesEnum) {
-         if (this.seleccionados[opcion] && this.cantidades[opcion] > 0) {
-            return true;
-         }
-      }
-      return false;
+      return this.productosAgregados.length > 0;
    }
 
-   agregarCantidades() {
-
-      // Aquí envía los datosAEnviar a tu servicio o realiza la lógica que necesites
-      console.log('Datos a enviar:', this.seleccionados);
+   enviarFormulario(): void {
+      console.log('Productos agregados:', this.productosAgregados);
+      this.productosAgregados = [];
    }
-
 
 }

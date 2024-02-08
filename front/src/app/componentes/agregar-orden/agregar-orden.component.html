@@ -3,17 +3,22 @@
 <form>
    <fieldset>
       <legend>Productos</legend>
-      @for (opcion of opcionesEnum; track opcion) {
-         <div>
-         <label>
-            <input type="checkbox" [(ngModel)]="seleccionados[opcion]" name="{{opcion}}" [value]="opcion">
-            {{ opcion }}
-         </label>
-         <input type="number" [(ngModel)]="cantidades[opcion]" name="{{opcion}}" placeholder="Cantidad"
-                >
-         </div>
-      }
+
+      <select [(ngModel)]="productoSeleccionado">
+         @for (opcion of opcionesEnum; track opcion) {
+            <option [value]="opcion">{{ opcion }}</option>
+         }
+      </select>
+      <input type="number" [(ngModel)]="cantidadSeleccionada" placeholder="Cantidad">
+
+      <button type="button" (click)="agregarProducto()">Agregar Producto</button>
+
+      <div>
+         @for (producto of productosAgregados; track producto) {
+            <p>{{ producto.nombre }} - Cantidad: {{ producto.cantidad }}</p>
+         }
+      </div>
    </fieldset>
 
-   <button type="button" [disabled]="!puedoEnviar()" (click)="agregarCantidades()">Agregar Cantidades</button>
+   <button type="button" [disabled]="!puedoEnviar()" (click)="enviarFormulario()">Enviar</button>
 </form>
