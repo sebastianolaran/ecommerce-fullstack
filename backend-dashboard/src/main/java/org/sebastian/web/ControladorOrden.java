@@ -4,11 +4,13 @@ package org.sebastian.web;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.sebastian.domain.DetalleOrden;
 import org.sebastian.domain.Orden;
-import org.sebastian.domain.Producto;
 import org.sebastian.interfaces.ProductoConCantidad;
 import org.sebastian.service.detalle_orden.DetalleOrdenService;
 import org.sebastian.service.orden.OrdenService;
+import org.sebastian.service.orden.http.AgregarOrdenRequest;
+import org.sebastian.service.orden.http.AgregarProductoConOrdenRequest;
 import org.sebastian.service.orden.http.OrdenResponse;
 import org.sebastian.service.producto.http.DeleteRequest;
 import org.sebastian.service.producto.http.ProductoOrdenRequest;
@@ -19,6 +21,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -46,16 +49,22 @@ public class ControladorOrden {
 
 
     @PostMapping("/guardar")
-    public ResponseEntity<?> guardar(@Valid @RequestBody Orden orden, Errors errors) {
+    public ResponseEntity<?> guardar(@RequestBody @Valid AgregarOrdenRequest request, Errors errors) {
         if (errors.hasErrors()) {
             // Si hay errores de validación, retorna un código de estado BAD_REQUEST
-            return new ResponseEntity<>("Datos inválidos", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body("Datos inválidos");
         } else {
-            // Guarda el producto y retorna un código de estado CREATED
+            // Crea un objeto Orden a partir de los datos de la solicitud
+            Orden orden = new Orden(request.getIdOrden(), (double) request.getValorTotal(), new Date(), request.getEstado());
+
+            // Guarda la orden
             ordenService.guardar(orden);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+
+            // Retorna un código de estado CREATED
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         }
     }
+
 
 
     @GetMapping("/info")
@@ -86,6 +95,21 @@ public class ControladorOrden {
 
         List<ProductoConCantidad> productos = detalleOrdenService.obtenerProductos(orden_id);
         return new ResponseEntity<>(productos, HttpStatus.OK);
+
+    }
+
+
+    @GetMapping("/id")
+    public String obtenerId(){
+        return ordenService.generarIdUnico();
+    }
+
+
+    @PostMapping("/productos/agregar")
+    public ResponseEntity<DetalleOrden> agregarProductoDeOrden(@RequestBody AgregarProductoConOrdenRequest request) {
+        DetalleOrden orden = new DetalleOrden(request.getId_orden(),request.getId_producto(), request.getCantidad(), request.getPrecio_unitario());
+        detalleOrdenService.guardar(orden);
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
 

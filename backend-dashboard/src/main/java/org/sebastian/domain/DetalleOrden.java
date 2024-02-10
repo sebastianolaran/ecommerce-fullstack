@@ -17,13 +17,20 @@ public class DetalleOrden {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_detalle;
 
-    private int id_orden;
+    private Long id_orden;
 
-
-    private int producto;
+    private Long producto;
 
 
     private int cantidad;
 
     private int precio_unitario;
+
+
+    public DetalleOrden(Long id_orden, Long producto, int cantidad, int precio_unitario) {
+        this.id_orden = id_orden;
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.precio_unitario = precio_unitario;
+    }
 }

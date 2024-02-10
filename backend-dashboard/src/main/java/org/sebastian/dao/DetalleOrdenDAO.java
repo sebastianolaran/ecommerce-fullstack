@@ -1,5 +1,6 @@
 package org.sebastian.dao;
 
+import org.sebastian.domain.DetalleOrden;
 import org.sebastian.domain.Orden;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -7,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface DetalleOrdenDAO extends JpaRepository<Orden,Long> {
+public interface DetalleOrdenDAO extends JpaRepository<DetalleOrden,Long> {
 
     @Query("SELECT p.id_producto " +
             "FROM Producto p " +

@@ -28,4 +28,7 @@ public interface OrdenDAO extends JpaRepository<Orden,Long> {
             "WHERE YEAR(o.fecha) = YEAR(:fechaActual) AND MONTH(o.fecha) = MONTH(:fechaActual)")
     List<Object[]> obtenerMontoYCantidadVentasMensuales(@Param("fechaActual") Date fechaActual);
 
+
+
+
 }

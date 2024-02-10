@@ -1,6 +1,5 @@
 package org.sebastian.web;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.sebastian.domain.Producto;
 import org.sebastian.service.producto.ProductoService;
@@ -19,7 +18,7 @@ import static java.lang.Integer.parseInt;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/productos")
-public class ControladorInicio {
+public class ControladorProductos {
 
     @Autowired
     private ProductoService productoService;

@@ -16,7 +16,8 @@ public class Orden {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Column(name = "id_orden") // Nombre de la columna en la base de datos
     private Long id_orden;
 
 
@@ -26,7 +27,16 @@ public class Orden {
     private Date fecha;
 
 
-
     private String estado;
 
+
+    public Orden() {
+    }
+
+    public Orden(Long id_orden, Double monto, Date fecha, String estado) {
+        this.id_orden = id_orden;
+        this.monto = monto;
+        this.fecha = fecha;
+        this.estado = estado;
+    }
 }

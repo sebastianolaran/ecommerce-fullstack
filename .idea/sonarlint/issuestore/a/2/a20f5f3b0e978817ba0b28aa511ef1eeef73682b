@@ -4,7 +4,5 @@ h	java:S116"SRename this field "id_orden" to match the regular expression '^[
 java:S1068")Remove this unused "monto" private field.(î¤ğ
 ?
 java:S1068")Remove this unused "fecha" private field.(÷ªİ
-H
-java:S1068"-Remove this unused "productos" private field.(‚ò’ûÿÿÿÿ
 ?
-java:S1068"*Remove this unused "estado" private field.(Í­ß)
+java:S1068"*Remove this unused "estado" private field.(Í­ß)

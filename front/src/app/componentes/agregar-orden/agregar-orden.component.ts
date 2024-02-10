@@ -4,6 +4,7 @@ import {DataService} from "../../core/service/productos-service";
 import {Producto, ProductoConCantidad} from "../../interfaces/producto";
 import {catchError, EMPTY, Observable} from "rxjs";
 import {AsyncPipe, CommonModule} from "@angular/common";
+import {OrdenService} from "../../core/service/orden.service";
 
 @Component({
    selector: 'app-agregar-orden',
@@ -16,7 +17,7 @@ import {AsyncPipe, CommonModule} from "@angular/common";
    templateUrl: './agregar-orden.component.html',
    styleUrl: './agregar-orden.component.css'
 })
-export class AgregarOrdenComponent implements OnInit{
+export class AgregarOrdenComponent implements OnInit {
 
 
    productosResultados!: Observable<Producto[]>
@@ -25,7 +26,7 @@ export class AgregarOrdenComponent implements OnInit{
    productosAgregados: ProductoConCantidad[] = [];
 
 
-   constructor(private service: DataService) {
+   constructor(private service: DataService, private ordenService: OrdenService) {
 
    }
 
@@ -35,13 +36,6 @@ export class AgregarOrdenComponent implements OnInit{
          return EMPTY;
       }))
    }
-
-   ngOnChanges(changes: SimpleChanges): void {
-      if (changes['productoSeleccionado']) {
-         console.log('Nuevo valor de productoSeleccionado:', changes['productoSeleccionado'].currentValue);
-      }
-   }
-
 
    agregarProducto(nombreProducto: string) {
       console.log("LLega hasdta axa")
@@ -55,7 +49,7 @@ export class AgregarOrdenComponent implements OnInit{
                id_producto: producto.id_producto,
                categoria: producto.categoria,
                descripcion: producto.descripcion,
-               precio : producto.precio
+               precio: producto.precio
             };
             this.productosAgregados.push(nuevoProducto);
             // Limpiar campos después de agregar el producto si es necesario
@@ -71,8 +65,44 @@ export class AgregarOrdenComponent implements OnInit{
    }
 
    enviarFormulario(): void {
-      console.log('Productos agregados:', this.productosAgregados);
-      this.productosAgregados = [];
+      let valorTotal: number = 0;
+      const estado: string = "Pendiente"
+
+      this.ordenService.obtenerNuevoid().subscribe(
+         (orden_id: number) => {
+            console.log("Nuevo ID de orden:", orden_id);
+
+            // Iterar sobre los productos agregados
+            this.productosAgregados.forEach(producto => {
+               valorTotal += producto.precio * producto.cantidad;
+
+               // Llamar a la función para agregar el producto con el ID de orden
+               this.ordenService.agregarProductoConOrden(orden_id, producto.id_producto, producto.cantidad, producto.precio).subscribe(
+                  (response: { mensaje: any }) => {
+                     console.log('Producto agregado:', response.mensaje);
+                  },
+                  (error: any) => {
+                     console.error('Error al agregar Producto:', error);
+                  }
+               );
+            });
+
+            this.ordenService.agregarOrden(orden_id, valorTotal, estado).subscribe(
+               (response: { mensaje: any }) => {
+                  console.log('Producto agregado:', response.mensaje);
+               },
+               (error: any) => {
+                  console.error('Error al agregar Producto:', error);
+               }
+            );
+            // Aquí puedes hacer algo con el valorTotal, si es necesario
+            console.log('Valor total de la orden:', valorTotal);
+         },
+         (error) => {
+            console.error("Error al obtener el ID de la orden:", error);
+         }
+      );
    }
+
 
 }

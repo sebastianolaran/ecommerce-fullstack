@@ -1,7 +1,7 @@
 package org.sebastian.service.detalle_orden;
 
 import org.sebastian.dao.DetalleOrdenDAO;
-import org.sebastian.dao.ProductoDAO;
+import org.sebastian.domain.DetalleOrden;
 import org.sebastian.domain.Producto;
 import org.sebastian.interfaces.ProductoConCantidad;
 import org.sebastian.service.producto.ProductoService;
@@ -33,5 +33,10 @@ public class DetalleOrdenServiceImpl implements DetalleOrdenService{
 
         }
         return productos;
+    }
+
+    @Override
+    public DetalleOrden guardar(DetalleOrden detalleOrden) {
+       return detalleOrdenDAO.save(detalleOrden);
     }
 }

@@ -12,11 +12,13 @@ import java.util.List;
 public interface OrdenService {
 
 
-    public List<Orden> obtenerOrdenes();
+    List<Orden> obtenerOrdenes();
 
-    public void guardar(Orden orden);
+    void guardar(Orden orden);
 
-    public void eliminar(String orden);
+    void eliminar(String orden);
 
     OrdenResponse obtenerOrdenesEnFechas(Date date) throws ParseException;
+
+    String generarIdUnico();
 }
