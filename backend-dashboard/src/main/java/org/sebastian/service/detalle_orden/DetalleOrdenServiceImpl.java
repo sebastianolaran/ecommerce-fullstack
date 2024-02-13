@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @Service
-public class DetalleOrdenServiceImpl implements DetalleOrdenService{
+public class DetalleOrdenServiceImpl implements DetalleOrdenService {
 
 
     @Autowired
@@ -21,14 +21,15 @@ public class DetalleOrdenServiceImpl implements DetalleOrdenService{
 
     @Autowired
     private ProductoService productoService;
+
     @Override
     public List<ProductoConCantidad> obtenerProductos(Long idOrden) {
         List<Long> id_productos = this.detalleOrdenDAO.obtenerIdsProductosDeOrden(idOrden);
         List<ProductoConCantidad> productos = new ArrayList<>();
-        for(Long id : id_productos){
+        for (Long id : id_productos) {
             Producto producto = productoService.encontrarProducto(id);
-            int cantidadProducto = detalleOrdenDAO.obtenerCantidadDeProductoConId(idOrden,id);
-            ProductoConCantidad productoConCantidad = new ProductoConCantidad(cantidadProducto,producto);
+            int cantidadProducto = detalleOrdenDAO.obtenerCantidadDeProductoConId(idOrden, id);
+            ProductoConCantidad productoConCantidad = new ProductoConCantidad(cantidadProducto, producto);
             productos.add(productoConCantidad);
 
         }
@@ -36,7 +37,12 @@ public class DetalleOrdenServiceImpl implements DetalleOrdenService{
     }
 
     @Override
-    public DetalleOrden guardar(DetalleOrden detalleOrden) {
-       return detalleOrdenDAO.save(detalleOrden);
+    public String guardar(DetalleOrden detalleOrden) {
+        try {
+            detalleOrdenDAO.save(detalleOrden);
+            return "Ok"; // Operación exitosa
+        } catch (Exception e) {
+            return "Error: " + e.getMessage(); // Error durante la operación de guardado
+        }
     }
 }

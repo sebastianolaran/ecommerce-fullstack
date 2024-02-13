@@ -9,9 +9,7 @@ import org.sebastian.domain.Orden;
 import org.sebastian.interfaces.ProductoConCantidad;
 import org.sebastian.service.detalle_orden.DetalleOrdenService;
 import org.sebastian.service.orden.OrdenService;
-import org.sebastian.service.orden.http.AgregarOrdenRequest;
-import org.sebastian.service.orden.http.AgregarProductoConOrdenRequest;
-import org.sebastian.service.orden.http.OrdenResponse;
+import org.sebastian.service.orden.http.*;
 import org.sebastian.service.producto.http.DeleteRequest;
 import org.sebastian.service.producto.http.ProductoOrdenRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +47,7 @@ public class ControladorOrden {
 
 
     @PostMapping("/guardar")
-    public ResponseEntity<?> guardar(@RequestBody @Valid AgregarOrdenRequest request, Errors errors) {
+    public ResponseEntity<String> guardar(@RequestBody @Valid AgregarOrdenRequest request, Errors errors) {
         if (errors.hasErrors()) {
             // Si hay errores de validación, retorna un código de estado BAD_REQUEST
             return ResponseEntity.badRequest().body("Datos inválidos");
@@ -60,10 +58,11 @@ public class ControladorOrden {
             // Guarda la orden
             ordenService.guardar(orden);
 
-            // Retorna un código de estado CREATED
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            // Retorna un código de estado OK junto con un mensaje
+            return ResponseEntity.ok("Orden guardada correctamente");
         }
     }
+
 
 
 
@@ -100,17 +99,28 @@ public class ControladorOrden {
 
 
     @GetMapping("/id")
-    public String obtenerId(){
-        return ordenService.generarIdUnico();
+    public ResponseEntity<IdResponse> obtenerId() {
+        String idUnico = ordenService.generarIdUnico();
+
+        // Crear un objeto IdResponse y establecer el ID
+        IdResponse idResponse = new IdResponse();
+        idResponse.setId_orden(idUnico);
+
+        // Devolver el objeto IdResponse como respuesta con el código de estado OK (200)
+        return ResponseEntity.ok(idResponse);
     }
 
 
-    @PostMapping("/productos/agregar")
-    public ResponseEntity<DetalleOrden> agregarProductoDeOrden(@RequestBody AgregarProductoConOrdenRequest request) {
-        DetalleOrden orden = new DetalleOrden(request.getId_orden(),request.getId_producto(), request.getCantidad(), request.getPrecio_unitario());
-        detalleOrdenService.guardar(orden);
-        return new ResponseEntity<>(HttpStatus.OK);
 
+    @PostMapping("/producto/agregar")
+    public ResponseEntity<AgregarProductoConOrdenResponse> agregarProductoDeOrden(@RequestBody AgregarProductoConOrdenRequest request) {
+        DetalleOrden orden = new DetalleOrden(request.getId_orden(), request.getId_producto(), request.getCantidad(), request.getPrecio_unitario());
+        String mensaje = detalleOrdenService.guardar(orden);
+        AgregarProductoConOrdenResponse agregarProductoConOrdenResponse = new AgregarProductoConOrdenResponse();
+        agregarProductoConOrdenResponse.setMensaje(mensaje);
+        // Agregar cualquier otra lógica de respuesta si es necesario
+
+        return new ResponseEntity<>(agregarProductoConOrdenResponse, HttpStatus.OK);
     }
 
 

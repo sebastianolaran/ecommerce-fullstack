@@ -5,6 +5,7 @@ import {Producto, ProductoConCantidad} from "../../interfaces/producto";
 import {catchError, EMPTY, Observable} from "rxjs";
 import {AsyncPipe, CommonModule} from "@angular/common";
 import {OrdenService} from "../../core/service/orden.service";
+import {Router} from "@angular/router";
 
 @Component({
    selector: 'app-agregar-orden',
@@ -26,7 +27,7 @@ export class AgregarOrdenComponent implements OnInit {
    productosAgregados: ProductoConCantidad[] = [];
 
 
-   constructor(private service: DataService, private ordenService: OrdenService) {
+   constructor(private service: DataService, private ordenService: OrdenService,private router: Router) {
 
    }
 
@@ -69,15 +70,15 @@ export class AgregarOrdenComponent implements OnInit {
       const estado: string = "Pendiente"
 
       this.ordenService.obtenerNuevoid().subscribe(
-         (orden_id: number) => {
-            console.log("Nuevo ID de orden:", orden_id);
+         (id_orden: string) => {
+            console.log("Nuevo ID de orden:", id_orden.toString());
 
             // Iterar sobre los productos agregados
             this.productosAgregados.forEach(producto => {
                valorTotal += producto.precio * producto.cantidad;
 
                // Llamar a la función para agregar el producto con el ID de orden
-               this.ordenService.agregarProductoConOrden(orden_id, producto.id_producto, producto.cantidad, producto.precio).subscribe(
+               this.ordenService.agregarProductoConOrden(id_orden, producto.id_producto, producto.cantidad, producto.precio).subscribe(
                   (response: { mensaje: any }) => {
                      console.log('Producto agregado:', response.mensaje);
                   },
@@ -87,22 +88,26 @@ export class AgregarOrdenComponent implements OnInit {
                );
             });
 
-            this.ordenService.agregarOrden(orden_id, valorTotal, estado).subscribe(
-               (response: { mensaje: any }) => {
-                  console.log('Producto agregado:', response.mensaje);
-               },
-               (error: any) => {
-                  console.error('Error al agregar Producto:', error);
-               }
-            );
             // Aquí puedes hacer algo con el valorTotal, si es necesario
             console.log('Valor total de la orden:', valorTotal);
+
+            // Llamar a la función para agregar la orden con el ID de orden
+            this.ordenService.agregarOrden(id_orden, valorTotal, estado).subscribe(
+               (response: any) => {
+                  console.log('Orden agregada:', response);
+                  this.router.navigate(['/ordenes']);
+               },
+               (error: any) => {
+                  console.error('Error al agregar la orden:', error);
+               }
+            );
          },
          (error) => {
             console.error("Error al obtener el ID de la orden:", error);
          }
       );
    }
+
 
 
 }

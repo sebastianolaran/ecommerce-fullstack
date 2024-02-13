@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -19,7 +20,7 @@ public class UsuarioServiceImpl implements UsuarioService  {
 
     @Override
     public List<Usuario> obtenerUsuarios() {
-        return (List<Usuario>) usuarioDAO.findAll();
+        return usuarioDAO.findAll();
     }
 
     @Override
@@ -41,7 +42,19 @@ public class UsuarioServiceImpl implements UsuarioService  {
     @Override
     @Transactional
     public Optional<Usuario> encontrarUsuarioPorEmail(String email) {
-       return usuarioDAO.findByEmail(email);
+        return usuarioDAO.findByEmail(email);
+    }
+
+    @Override
+    public String verificarLogin(String email, String password) {
+        String mensaje;
+        if (Objects.equals(this.encontrarUsuarioPorEmail(email).get().getPassword(), password)){
+            mensaje = "Login Correcto";
+        }
+        else {
+            mensaje= "Login Incorrecto";
+        }
+        return mensaje;
     }
 
 }

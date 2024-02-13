@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface UsuarioService {
 
 
-    public List<Usuario> obtenerUsuarios();
+    List<Usuario> obtenerUsuarios();
 
     public void guardar(Usuario usuario);
 
@@ -19,4 +19,5 @@ public interface UsuarioService {
     Optional<Usuario> encontrarUsuarioPorEmail(String email);
 
 
+    String verificarLogin(String email, String password);
 }

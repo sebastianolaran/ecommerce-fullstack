@@ -18,7 +18,7 @@ public class Orden {
     @Id
 
     @Column(name = "id_orden") // Nombre de la columna en la base de datos
-    private Long id_orden;
+    private String id_orden;
 
 
     private Double monto;
@@ -33,7 +33,7 @@ public class Orden {
     public Orden() {
     }
 
-    public Orden(Long id_orden, Double monto, Date fecha, String estado) {
+    public Orden(String id_orden, Double monto, Date fecha, String estado) {
         this.id_orden = id_orden;
         this.monto = monto;
         this.fecha = fecha;

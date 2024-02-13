@@ -31,10 +31,6 @@ public class OrdenServiceImpl implements OrdenService {
 
     @Override
     public void guardar(Orden orden) {
-        // Asigna un valor para id_orden si aún no lo tiene
-        if (orden.getId_orden() == null) {
-            orden.setId_orden(2222L); // Asigna un ID único
-        }
 
         try {
             // Guarda la orden en la base de datos

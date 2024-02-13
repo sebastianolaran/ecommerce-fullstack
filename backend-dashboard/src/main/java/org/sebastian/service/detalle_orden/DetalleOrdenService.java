@@ -10,5 +10,5 @@ public interface DetalleOrdenService {
 
     List<ProductoConCantidad> obtenerProductos(Long idOrden);
 
-    DetalleOrden guardar(DetalleOrden detalleOrden);
+    String guardar(DetalleOrden detalleOrden);
 }

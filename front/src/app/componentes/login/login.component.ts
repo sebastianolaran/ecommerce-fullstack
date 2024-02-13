@@ -12,7 +12,7 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
   standalone: true,
   imports: [ReactiveFormsModule,RouterLink],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
   formularioIngreso = this.fb.group({
     email: ['', Validators.required],
     password: ['', Validators.required]
@@ -23,16 +23,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-
-  }
-
-  hasErrors(controlName: string, errorType: string): null | false | boolean {
-    const control = this.formularioIngreso.get(controlName);
-    return control && control.hasError(errorType) && (control.dirty || control.touched);
-  }
-
-  onSubmit() {
+   onSubmit() {
     const emailControl = this.formularioIngreso.get("email");
     const passwordControl = this.formularioIngreso.get("password");
 
@@ -42,13 +33,10 @@ export class LoginComponent implements OnInit {
       this.service.login(email, password).subscribe(
         (response) => {
           // Manejar la respuesta del servidor, por ejemplo, almacenar el token en el almacenamiento local.
-          console.log('Token de autenticación recibido:', response.token);
+          console.log('Token de autenticación recibido:', response.mensaje);
           this.router.navigate(['/inicio']);
         },
-        (error) => {
-          // Manejar errores, por ejemplo, mostrar un mensaje de error al usuario.
-          console.error('Error al iniciar sesión:', error);
-        }
+
       );
       this.resetForm();
     }

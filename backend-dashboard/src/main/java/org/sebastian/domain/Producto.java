@@ -38,7 +38,7 @@ public class Producto {
 
 
     public Producto() {
-        // Default constructor with no arguments
+
     }
 
     public Producto(String nombre, int precio, String categoria, String descripcion) {
