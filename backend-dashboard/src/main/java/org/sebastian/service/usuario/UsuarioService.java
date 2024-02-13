@@ -10,7 +10,7 @@ public interface UsuarioService {
 
     List<Usuario> obtenerUsuarios();
 
-    public void guardar(Usuario usuario);
+    String guardar(Usuario usuario);
 
     public void eliminar(Usuario usuario);
 
@@ -18,6 +18,7 @@ public interface UsuarioService {
 
     Optional<Usuario> encontrarUsuarioPorEmail(String email);
 
+    String verificarLogin(String email, String contrasenia);
 
-    String verificarLogin(String email, String password);
+
 }

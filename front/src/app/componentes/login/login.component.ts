@@ -32,9 +32,17 @@ export class LoginComponent  {
       const password = passwordControl.value;
       this.service.login(email, password).subscribe(
         (response) => {
-          // Manejar la respuesta del servidor, por ejemplo, almacenar el token en el almacenamiento local.
-          console.log('Token de autenticación recibido:', response.mensaje);
-          this.router.navigate(['/inicio']);
+
+          if (response.mensaje == "Login exitoso"){
+             this.router.navigate(['/inicio'])
+
+          }
+          else {
+             this.mostrarMensaje = response.mensaje
+
+          }
+
+
         },
 
       );
