@@ -1,18 +1,12 @@
-.main{
 
-  border: 1px red solid;
-}
 
 .main .pantalla{
-  border: 1px solid saddlebrown;
+
   flex: 1;
   display: flex;
   flex-direction: column;
   background-color: #F5F5F5;
-
 }
-
-
 
 
 
@@ -20,9 +14,15 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
+
+.box h2{
+   font-size: 2.8rem;
+   padding: 0 1.8rem;
+   text-decoration: underline;
+}
 
 .conteinerBox{
   display: flex;
@@ -42,21 +42,20 @@
   padding: 1rem;
   border-radius: 8px; /* Añade bordes redondeados */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Añade una sombra sutil */
-
-  width: 15rem;
+  width: 17rem;
   height: 10rem;
 }
 
 
 .fecha{
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #11235A;
 }
 
 
 .valor{
-  color: aqua;
-  font-size: 3rem;
+  color: black;
+  font-size: 2rem;
 }
 
 

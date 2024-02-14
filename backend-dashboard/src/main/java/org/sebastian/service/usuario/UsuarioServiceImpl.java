@@ -69,7 +69,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (optionalUser.isPresent()) {
             Usuario user = optionalUser.get();
 
-            if (contrasenia == user.getPassword()) {
+            if (Objects.equals(contrasenia, user.getPassword())) {
 
                 mensaje = "Login exitoso";
 

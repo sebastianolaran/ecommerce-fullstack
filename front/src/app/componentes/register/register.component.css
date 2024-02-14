@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   padding: 0;
@@ -15,56 +16,123 @@ body {
   height: 100vh;
 }
 
-
-.registration-box {
-  width: 30rem;
-  background: #000;
-  color: #fff;
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  box-sizing: border-box;
-  padding: 70px 30px;
+.registrar{
+   font-size: 1.5rem;
+   background-color: black;
+   border: none;
+   text-decoration: none;
+   line-height: 20px;
+   color: darkgrey;
+   display: flex;
+   width: 100%;
+   align-items: center;
+   justify-content: center;
+   padding-top: 1rem;
 
 }
 
-.login-box .avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  position: absolute;
-  top: -56px;
-  left: calc(50% - 50px);
-}
-
-.registration-box h1 {
-  margin: 0;
-  padding: 0 0 20px;
-  text-align: center;
-  font-size: 22px;
+.registrar:hover {
+   cursor: pointer;
+   color: #fff;
 }
 
 .registration-box label {
-  margin: 0;
-  padding: 0;
-  font-weight: bold;
-  display: block;
+   margin: 0;
+   padding: 0;
+   font-weight: bold;
+   display: block;
 }
 
 .registration-box input {
-  width: 100%;
-  margin-bottom: 20px;
+   width: 100%;
+   margin-bottom: 20px;
 }
 
-.registration-box input[type="text"], .registration-box input[type="password"] {
-  border: none;
-  border-bottom: 1px solid #fff;
-  background: transparent;
-  outline: none;
-  height: 40px;
-  color: #fff;
-  font-size: 16px;
+.registration-box input[type="text"],
+.registration-box input[type="password"] {
+   border: none;
+   border-bottom: 1px solid #fff;
+   background: transparent;
+   outline: none;
+   height: 40px;
+   color: #fff;
+   font-size: 1.1rem;
 }
 
+/* Estilos para computadoras */
+@media only screen and (min-width: 768px) {
 
+   .registration-box {
+      width: 30rem;
+      background: #000;
+      color: #fff;
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      box-sizing: border-box;
+      padding: 70px 30px;
+   }
+
+   .registration-box .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      position: absolute;
+      top: -56px;
+      left: calc(50% - 50px);
+   }
+
+   .registration-box h1 {
+      margin: 0;
+      padding: 0 0 20px;
+      text-align: center;
+      font-size: 2rem;
+   }
+
+
+
+
+}
+
+/* Estilos para dispositivos móviles */
+@media only screen and (max-width: 767px) {
+
+
+   .registration-box {
+      display: flex;
+      background-color: black;
+      color: white;
+      flex-direction: column;
+      height: 60%;
+      padding: 0 4.2rem;
+      justify-content: space-evenly;
+   }
+
+
+   .registration-box h1 {
+      text-align: center;
+      font-size: 3rem;
+   }
+
+   .registration-box label {
+      font-weight: bold;
+      display: block;
+      font-size: 1.3rem;
+   }
+
+
+
+   .registration-box input[type="text"],
+   .registration-box input[type="password"] {
+      border: none;
+      border-bottom: 1px solid #fff;
+      background: transparent;
+      outline: none;
+      height: 40px;
+      color: #fff;
+      font-size: 1.1rem;
+   }
+
+
+}

@@ -16,9 +16,11 @@
 
     <button type="submit" class="btn btn-primary" [disabled]="formularioIngreso.invalid">Iniciar Sesión</button>
 
-    <div>{{ mostrarMensaje }}</div>
+    <div class="mensaje-error">
+    <p>   {{ mostrarMensaje }} </p>
+    </div>
 
-    <a routerLink="/registrar">
+    <a routerLink="/registrar" class="registrar">
     <span>Registrar</span>
     </a>
 

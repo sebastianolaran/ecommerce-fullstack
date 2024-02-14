@@ -34,7 +34,7 @@ body {
   margin: 0;
   padding: 0 0 20px;
   text-align: center;
-  font-size: 22px;
+  font-size: 2rem;
 }
 
 .login-box label {
@@ -79,7 +79,7 @@ button  :hover {
 
 .login-box a {
   text-decoration: none;
-  font-size: 12px;
+  font-size: 1rem;
   line-height: 20px;
   color: darkgrey;
 }
@@ -87,3 +87,28 @@ button  :hover {
 .login-box a:hover {
   color: #fff;
 }
+
+.mensaje-error{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.mensaje-error p{
+   font-size: 1.2rem;
+   padding: 0.4rem 0;
+}
+
+
+.registrar{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.registrar span{
+
+   font-size: 1.2rem;
+}
+
+
+

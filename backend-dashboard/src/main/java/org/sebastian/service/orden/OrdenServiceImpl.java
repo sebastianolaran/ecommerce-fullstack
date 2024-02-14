@@ -20,7 +20,9 @@ public class OrdenServiceImpl implements OrdenService {
     private final OrdenDAO ordenDAO;
 
     @Autowired
-    public OrdenServiceImpl(OrdenDAO ordenDAO) {this.ordenDAO = ordenDAO;}
+    public OrdenServiceImpl(OrdenDAO ordenDAO) {
+        this.ordenDAO = ordenDAO;
+    }
 
     @Override
     public List<Orden> obtenerOrdenes() {
@@ -101,8 +103,8 @@ public class OrdenServiceImpl implements OrdenService {
     }
 
     private void asignarValoresOrdenResponse(Object[] resultadosList, OrdenResponse ordenResponse, String tipo) {
-        Double monto = (Double) resultadosList[0];
-        Long cantidad = (Long) resultadosList[1];
+        Double monto = resultadosList[0] != null ? (Double) resultadosList[0] : 0.0;
+        Long cantidad = resultadosList[1] != null ? (Long) resultadosList[1] : 0L;
 
         if ("Diario".equals(tipo)) {
             ordenResponse.setMontoDiario(monto);
@@ -115,4 +117,5 @@ public class OrdenServiceImpl implements OrdenService {
             ordenResponse.setVentasMensual(Math.toIntExact(cantidad));
         }
     }
+
 }
