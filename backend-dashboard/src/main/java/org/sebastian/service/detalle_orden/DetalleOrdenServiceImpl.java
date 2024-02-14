@@ -3,7 +3,7 @@ package org.sebastian.service.detalle_orden;
 import org.sebastian.dao.DetalleOrdenDAO;
 import org.sebastian.domain.DetalleOrden;
 import org.sebastian.domain.Producto;
-import org.sebastian.interfaces.ProductoConCantidad;
+import org.sebastian.domain.ProductoConCantidad;
 import org.sebastian.service.producto.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,7 @@ public class DetalleOrdenServiceImpl implements DetalleOrdenService {
 
     @Override
     public List<ProductoConCantidad> obtenerProductos(Long idOrden) {
+
         List<Long> id_productos = this.detalleOrdenDAO.obtenerIdsProductosDeOrden(idOrden);
         List<ProductoConCantidad> productos = new ArrayList<>();
         for (Long id : id_productos) {

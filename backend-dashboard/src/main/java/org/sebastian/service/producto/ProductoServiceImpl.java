@@ -4,7 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.sebastian.dao.ProductoDAO;
 import org.sebastian.domain.Producto;
 
-import org.sebastian.service.producto.http.EditarRequest;
+import org.sebastian.service.producto.http.request.EditarRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,17 +46,29 @@ public class ProductoServiceImpl implements ProductoService {
 
     }
 
-    public void editarProducto(EditarRequest request) {
-        // Recuperar la entidad existente
-        Producto producto = productoDAO.findById(Long.valueOf(request.getId_producto())).orElseThrow(() -> new EntityNotFoundException("No se encontró el producto con ID: " + request.getId_producto()));
+    public String editarProducto(EditarRequest request) {
+        String mensaje;
+        try {
+            // Recuperar la entidad existente
+            Producto producto = productoDAO.findById(Long.valueOf(request.getId_producto())).orElseThrow(() -> new EntityNotFoundException("No se encontró el producto con ID: " + request.getId_producto()));
 
-        // Actualizar los campos
-        producto.setCategoria(request.getCategoria());
-        producto.setDescripcion(request.getDescripcion());
-        producto.setPrecio(Integer.parseInt(request.getPrecio()));
+            // Actualizar los campos
+            producto.setCategoria(request.getCategoria());
+            producto.setDescripcion(request.getDescripcion());
+            producto.setPrecio(Integer.parseInt(request.getPrecio()));
 
-        // Guardar la entidad actualizada
-        productoDAO.save(producto);
+            // Guardar la entidad actualizada
+            productoDAO.save(producto);
+
+            mensaje= "Producto editado correctamente.";
+        } catch (NumberFormatException e) {
+            mensaje= "Error: El ID del producto no es válido.";
+        } catch (EntityNotFoundException e) {
+            mensaje= "Error: No se encontró el producto con el ID proporcionado.";
+        } catch (Exception e) {
+            mensaje ="Error inesperado al editar el producto. Detalles: " + e.getMessage();
+        }
+        return mensaje;
     }
 
 

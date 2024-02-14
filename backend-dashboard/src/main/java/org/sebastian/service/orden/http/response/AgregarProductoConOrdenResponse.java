@@ -1,4 +1,5 @@
-package org.sebastian.service.producto.http;
+package org.sebastian.service.orden.http.response;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EditarResponse {
+public class AgregarProductoConOrdenResponse {
 
     String mensaje;
 }

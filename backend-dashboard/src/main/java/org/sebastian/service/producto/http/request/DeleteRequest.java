@@ -1,4 +1,4 @@
-package org.sebastian.service.producto.http;
+package org.sebastian.service.producto.http.request;
 
 
 import lombok.AllArgsConstructor;
@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class AgregarResponse {
-
-    String mensaje;
+@NoArgsConstructor
+public class DeleteRequest {
+    Long id_producto;
 }

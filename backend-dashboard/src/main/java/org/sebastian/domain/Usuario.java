@@ -47,21 +47,6 @@ public class Usuario implements UserDetails {
     }
 
 
-    public Usuario(Long id_usuario, String username, String password, String email) {
-        this.id_usuario = id_usuario;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-
-    }
-
-    public Usuario(String nombreUsuario, String contraseña, String correo) {
-        this.username = nombreUsuario;
-        this.password = contraseña;
-        this.email = correo;
-
-    }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -6,12 +6,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sebastian.domain.DetalleOrden;
 import org.sebastian.domain.Orden;
-import org.sebastian.interfaces.ProductoConCantidad;
+import org.sebastian.domain.ProductoConCantidad;
 import org.sebastian.service.detalle_orden.DetalleOrdenService;
 import org.sebastian.service.orden.OrdenService;
-import org.sebastian.service.orden.http.*;
-import org.sebastian.service.producto.http.DeleteRequest;
-import org.sebastian.service.producto.http.ProductoOrdenRequest;
+import org.sebastian.service.orden.http.request.AgregarOrdenRequest;
+import org.sebastian.service.orden.http.request.AgregarProductoConOrdenRequest;
+import org.sebastian.service.orden.http.response.AgregarProductoConOrdenResponse;
+import org.sebastian.service.orden.http.response.IdResponse;
+import org.sebastian.service.orden.http.response.OrdenResponse;
+import org.sebastian.service.producto.http.request.DeleteRequest;
+import org.sebastian.service.producto.http.request.ProductoOrdenRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +23,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 

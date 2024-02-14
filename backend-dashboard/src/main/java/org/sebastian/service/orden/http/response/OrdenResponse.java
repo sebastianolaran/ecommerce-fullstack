@@ -1,4 +1,4 @@
-package org.sebastian.service.orden.http;
+package org.sebastian.service.orden.http.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

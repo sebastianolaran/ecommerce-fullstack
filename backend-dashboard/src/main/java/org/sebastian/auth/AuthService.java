@@ -6,8 +6,6 @@ import org.sebastian.domain.Usuario;
 import org.sebastian.service.usuario.UsuarioService;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -30,7 +28,12 @@ public class AuthService {
     }
 
 
-    //Esta funcion se encarga de la distribucion de llamados al momento de hacer el login
+    /**
+     * Registra el usuario si las credenciales correctas y nos devuelve un valor del mensaje correspondinte
+     *
+     * @param request El objeto RegisterRequest que contiene las credenciales del usuario.
+     * @return Un objeto AuthResponse que contiene el mensaje que indica como resulto el registro
+     */
 
     public AuthResponse register(RegisterRequest request) {
 

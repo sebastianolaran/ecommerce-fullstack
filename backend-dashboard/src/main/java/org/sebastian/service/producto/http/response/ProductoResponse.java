@@ -1,4 +1,4 @@
-package org.sebastian.service.producto.http;
+package org.sebastian.service.producto.http.response;
 
 
 import lombok.AllArgsConstructor;
@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductoOrdenRequest {
-    Long id_orden;
+public class ProductoResponse {
 
+    String mensaje;
 }
-
-

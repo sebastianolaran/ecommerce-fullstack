@@ -23,16 +23,12 @@ w
 Gbackend-dashboard/src/main/java/org/sebastian/web/ControladorLogin.java,2\d\2dc42d6348d556657c1ec5fbec46ad42c3001046
 I
 backend-dashboard/pom.xml,f\f\ffaacdda7859cdcc20ef63e12a26bfe410ac8a97
-n
->backend-dashboard/src/main/java/org/sebastian/domain/Role.java,4\6\4637a77f16efe8d18f2b50e1b1304d783bc885e1
 t
 Dbackend-dashboard/src/main/java/org/sebastian/auth/AuthResponse.java,1\1\11706786f7abcf74f7de52974b4ccf30155d4665
 Å
 Qbackend-dashboard/src/main/java/org/sebastian/service/usuario/UsuarioService.java,2\1\216ec2e93e45bc8f11a3d6cfc64eef58f6f19f9b
 Ö
 Ubackend-dashboard/src/main/java/org/sebastian/service/usuario/UsuarioServiceImpl.java,a\4\a46ad543d8f96638b5b9d8a12731d36ee0d30b3f
-~
-Nbackend-dashboard/src/main/java/org/sebastian/jwt/JwtAuthenticationFilter.java,5\e\5ea4f9361ee60491e9a2304f66cae5d2149a6abd
 s
 Cbackend-dashboard/src/test/java/org/sebastian/test/PruebaLogin.java,3\8\38c5a7b7b48a26fd06a241efe8d19700edf8b472
 É
@@ -177,8 +173,6 @@ _
 /front/src/app/core/service/productos-service.ts,1\4\143949286b727e897760366c043ca4a2321299fe
 V
 &front/src/app/interfaces/categorias.ts,5\7\57f0409289065998611b14337c0731c11ee4b0f1
-x
-Hbackend-dashboard/src/main/java/org/sebastian/web/ControladorInicio.java,3\a\3ac6d6e48a3243be403b3def0dcd5f04984025b7
 Ü
 Vbackend-dashboard/src/main/java/org/sebastian/service/producto/http/DeleteRequest.java,7\d\7dc5961da75a0550f9707a05f0fd43eb0adee6d6
 {
@@ -289,8 +283,6 @@ Q.idea/sonarlint/securityhotspotstore/d/8/d8db5374e917690d8d9593288df96d921aac81
 Q.idea/sonarlint/securityhotspotstore/d/e/de65b9f2c87586745a8757972f95f251319699e0,4\3\4301889d7e62f8e1d3d89eb2c8f4aaef1b7a18c8
 s
 Cfront/src/app/componentes/agregar-orden/agregar-orden.component.css,5\4\54985142ae5e3285de938623fcfb004b019b75af
-w
-Gfront/src/app/componentes/agregar-orden/agregar-orden.component.spec.ts,f\c\fc3305284b15ff26493bf2da9d83b309a3ebb003
 t
 Dfront/src/app/componentes/agregar-orden/agregar-orden.component.html,3\8\382c1e321dbbebdadd94cce42c07e5d67c98ffe6
 r

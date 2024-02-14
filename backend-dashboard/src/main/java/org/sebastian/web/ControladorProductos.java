@@ -3,7 +3,10 @@ package org.sebastian.web;
 import lombok.extern.slf4j.Slf4j;
 import org.sebastian.domain.Producto;
 import org.sebastian.service.producto.ProductoService;
-import org.sebastian.service.producto.http.*;
+import org.sebastian.service.producto.http.request.AgregarRequest;
+import org.sebastian.service.producto.http.request.DeleteRequest;
+import org.sebastian.service.producto.http.request.EditarRequest;
+import org.sebastian.service.producto.http.response.ProductoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,17 +35,17 @@ public class ControladorProductos {
 
     // Guardar un nuevo producto
     @PostMapping("/agregar")
-    public AgregarResponse guardar(@RequestBody AgregarRequest request, Errors errors) {
+    public ProductoResponse guardar(@RequestBody AgregarRequest request, Errors errors) {
         Producto producto = new Producto(request.getNombre(), parseInt(request.getPrecio()), request.getCategoria(), request.getDescripcion());
         if (errors.hasErrors()) {
             // Si hay errores de validación, retorna un código de estado BAD_REQUEST
 
-            return AgregarResponse.builder()
+            return ProductoResponse.builder()
                     .mensaje("ERROR").build();
         } else {
             // Guarda el producto y retorna un código de estado CREATED
             productoService.guardar(producto);
-            return AgregarResponse.builder()
+            return ProductoResponse.builder()
                     .mensaje("Agregado con exito").build();
         }
     }
@@ -64,17 +67,8 @@ public class ControladorProductos {
 
 
     @PostMapping("/editar")
-    public ResponseEntity<EditarResponse> editarProducto(@RequestBody EditarRequest request) {
-        try {
-            productoService.editarProducto(request);
-            return ResponseEntity.ok(EditarResponse.builder().mensaje("Producto editado correctamente.").build());
-
-        } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body(EditarResponse.builder().mensaje("Error: El ID del producto no es válido.").build());
-
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(EditarResponse.builder().mensaje("Error inesperado al editar el producto. Detalles: " + e.getMessage()).build());
-        }
+    public ProductoResponse editarProducto(@RequestBody EditarRequest request) {
+        return (ProductoResponse.builder().mensaje(productoService.editarProducto(request)).build());
     }
 
 

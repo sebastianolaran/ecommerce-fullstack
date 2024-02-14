@@ -2,7 +2,7 @@ package org.sebastian.service.orden;
 
 import org.sebastian.dao.OrdenDAO;
 import org.sebastian.domain.Orden;
-import org.sebastian.service.orden.http.OrdenResponse;
+import org.sebastian.service.orden.http.response.OrdenResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +20,7 @@ public class OrdenServiceImpl implements OrdenService {
     private final OrdenDAO ordenDAO;
 
     @Autowired
-    public OrdenServiceImpl(OrdenDAO ordenDAO) {
-        this.ordenDAO = ordenDAO;
-    }
+    public OrdenServiceImpl(OrdenDAO ordenDAO) {this.ordenDAO = ordenDAO;}
 
     @Override
     public List<Orden> obtenerOrdenes() {
@@ -31,13 +29,10 @@ public class OrdenServiceImpl implements OrdenService {
 
     @Override
     public void guardar(Orden orden) {
-
         try {
-            // Guarda la orden en la base de datos
             ordenDAO.save(orden);
         } catch (Exception e) {
-            // Maneja cualquier excepción que pueda ocurrir al guardar la orden
-            e.printStackTrace(); // O maneja la excepción de acuerdo a tus necesidades
+            e.printStackTrace();
         }
     }
 
@@ -46,13 +41,8 @@ public class OrdenServiceImpl implements OrdenService {
     public void eliminar(String id_orden) {
         Optional<Orden> ordenOptional = ordenDAO.findById(Long.valueOf(id_orden));
 
-        Orden orden = ordenOptional.orElse(null); // or provide a default value
+        ordenOptional.ifPresent(ordenDAO::delete);
 
-        if (orden != null) {
-            ordenDAO.delete(orden);
-        } else {
-            ///
-        }
     }
 
     @Override

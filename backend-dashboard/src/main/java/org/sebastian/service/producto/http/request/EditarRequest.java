@@ -1,4 +1,4 @@
-package org.sebastian.service.producto.http;
+package org.sebastian.service.producto.http.request;
 
 
 import lombok.AllArgsConstructor;
