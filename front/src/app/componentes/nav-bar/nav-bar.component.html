@@ -13,6 +13,8 @@
       <p>Admin</p>
     </div>
   </div>
+
+
   <ul>
     <li>
       <a routerLink="/inicio">
@@ -50,4 +52,26 @@
       <span class='tooltip'>Logout</span>
     </li>
   </ul>
+
 </div>
+
+
+<nav id="hamburger-nav">
+
+   <div class="nav-icon">
+      <i class='bx bx-store'></i>
+   </div>
+   <div class="hamburger-menu">
+      <div class="hamburger-icon" (click)="toggleMenu()" >
+         <i class='bx bx-store'></i>
+      </div>
+      <div class="menu-links">
+         <ul>
+            <li><a href="#sobre-mi" onclick="toggleMenu()">Sobre Mi</a></li>
+            <li><a href="#tecnologias" onclick="toggleMenu()">Tecnologias</a></li>
+            <li><a href="#projectos" onclick="toggleMenu()">Projectos</a></li>
+            <li><a href="#contacto" onclick="toggleMenu()">Contacto</a></li>
+         </ul>
+      </div>
+   </div>
+</nav>

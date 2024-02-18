@@ -1,6 +1,19 @@
+@media only screen and (min-width: 768px) {
+   /*Side bar parte sin toggle*/
+   .sidebar {
+      display: flex;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 10vw; /* Cambiado a 20vw para el ancho */
+      background-color: black;
+      padding: .4rem .8rem;
+      transition: all 0.5s ease;
+      color: azure;
 
-
-@media only screen and (min-width: 768px) {/*Side bar parte sin toggle*/
+      flex-direction: column;
+      justify-content: space-between;
+   }
 
    i {
       font-size: 20px;
@@ -82,8 +95,6 @@
 
 
    /*Toggle activo*/
-
-
    .sidebar.active * {
       font-size: 20px;
    }
@@ -158,25 +169,109 @@
       display: flex;
       justify-content: flex-start;
       gap: 1.5rem;
-   }}
+   }
+}
 
 
 /* Estilos para dispositivos móviles */
 @media only screen and (max-width: 767px) {
 
+   i {
+      font-size: 20px;
+      color: white;
+   }
+
    .main {
       display: flex;
-      flex-direction: column;
    }
 
    .sidebar {
-      width: 15vh;
+      display: none;
+   }
+
+   #hamburger-nav {
+      background-color: black;
+      color: #fff;
+      height: 10vh;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
    }
 
-   .sidebar.active {
-      width: 40vh;
+
+   .hamburger-menu {
+      position: relative;
+      display: inline-block;
    }
 
+   .hamburger-icon {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 24px;
+      width: 30px;
+      cursor: pointer;
+   }
+
+   .hamburger-icon span {
+      width: 100%;
+      height: 2px;
+      background-color: black;
+
+   }
+
+   .menu-links {
+      position: absolute;
+      top: 100%;
+      right: 5px;
+      background-color: white;
+      width: fit-content;
+      max-height: 0;
+      overflow: hidden;
+
+   }
+
+   .menu-links a {
+      display: block;
+      padding: 10px;
+      text-align: center;
+      font-size: 1.5rem;
+      color: black;
+      text-decoration: none;
+      transition: all 0.3 ease-in-out;
+   }
+
+   .menu-links li {
+      list-style: none;
+   }
+
+   .menu-links.open {
+      max-height: 300px;
+   }
+
+   .hamburger-icon.open span:first-child {
+      transform: rotate(45deg) translate(10px, 5px);
+   }
+
+   .hamburger-icon.open span:nth-child(2) {
+      opacity: 0;
+   }
+
+   .hamburger-icon.open span:last-child {
+      transform: rotate(-45deg) translate(10px, -5px);
+   }
+
+   .hamburger-icon span:first-child {
+      transform: none;
+   }
+
+   .hamburger-icon span:first-child {
+      opacity: 1;
+   }
+
+   .hamburger-icon span:first-child {
+      transform: none;
+   }
 
 }
