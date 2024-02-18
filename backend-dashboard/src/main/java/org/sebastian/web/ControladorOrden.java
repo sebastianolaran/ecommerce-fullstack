@@ -81,11 +81,10 @@ public class ControladorOrden {
     public ResponseEntity<Orden> eliminar(@RequestBody DeleteRequest request) {
         Long orden_id = request.getId_producto();
         if (orden_id != null) {
-            // Si encuentra el producto, lo elimina y retorna un código de estado OK
             ordenService.eliminar(String.valueOf(orden_id));
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            // Si no encuentra el producto, retorna un código de estado NOT_FOUND
+
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -94,7 +93,6 @@ public class ControladorOrden {
     @PostMapping("/productos")
     public ResponseEntity<List<ProductoConCantidad>> obtenerProductos(@RequestBody ProductoOrdenRequest request) {
         Long orden_id = request.getId_orden();
-
         List<ProductoConCantidad> productos = detalleOrdenService.obtenerProductos(orden_id);
         return new ResponseEntity<>(productos, HttpStatus.OK);
 

@@ -13,8 +13,6 @@ import lombok.Data;
 
 public class Producto {
 
-
-
     private static final long serialVersionUID = 1L;
 
     @Id

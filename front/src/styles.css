@@ -22,7 +22,8 @@ body, html {
    .main{
       display: flex;
       flex-direction: column;
-      width: auto;
+
+
    }
 
 }
