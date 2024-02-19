@@ -64,6 +64,10 @@
       display: none;
    }
 
+   #hamburger-nav{
+      display: none;
+   }
+
    .user-img {
       width: 70px;
       border-radius: 100%;

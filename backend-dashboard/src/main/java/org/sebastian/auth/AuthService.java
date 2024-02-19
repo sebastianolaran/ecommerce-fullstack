@@ -3,6 +3,9 @@ package org.sebastian.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.sebastian.domain.Usuario;
+import org.sebastian.excepciones.ContraseñaIncorrectaExcepcion;
+import org.sebastian.excepciones.EmailEnUsoExcepcion;
+import org.sebastian.excepciones.EmailNoEncontrado;
 import org.sebastian.service.usuario.UsuarioService;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +22,16 @@ public class AuthService {
      * @param request El objeto LoginRequest que contiene las credenciales del usuario.
      * @return Un objeto AuthResponse que contiene el mensaje que indica como resulto el login
      */
+
     public AuthResponse login(LoginRequest request) {
-
-        return AuthResponse.builder()
-                .mensaje(userRepository.verificarLogin(request.getEmail(), request.getPassword()))
-                .build();
-
+        AuthResponse response = new AuthResponse();
+        try {
+            String token = userRepository.verificarLogin(request.getEmail(), request.getPassword());
+            response.setToken(token);
+        } catch (ContraseñaIncorrectaExcepcion | EmailNoEncontrado e) {
+            response.setError(e.getMessage());
+        }
+        return response;
     }
 
 
@@ -36,18 +43,18 @@ public class AuthService {
      */
 
     public AuthResponse register(RegisterRequest request) {
+        AuthResponse response = new AuthResponse();
+        //Creacion de usuario con los datos obtenidos en el llamado a la API
+        Usuario user = Usuario.builder()
+                .username(request.getUsername())
+                .password(request.getPassword())
+                .email(request.getEmail())
+                .build();
 
-            //Creacion de usuario con los datos obtenidos en el llamado a la API
-            Usuario user = Usuario.builder()
-                    .username(request.getUsername())
-                    .password(request.getPassword())
-                    .email(request.getEmail())
-                    .build();
+        String token = userRepository.guardar(user);
+        response.setToken(token);
 
-
-            return AuthResponse.builder()
-                    .mensaje(userRepository.guardar(user))
-                    .build();
+        return response;
 
     }
 

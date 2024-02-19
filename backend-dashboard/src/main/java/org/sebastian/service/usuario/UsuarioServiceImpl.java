@@ -3,6 +3,11 @@ package org.sebastian.service.usuario;
 import org.sebastian.auth.AuthResponse;
 import org.sebastian.dao.UsuarioDAO;
 import org.sebastian.domain.Usuario;
+import org.sebastian.excepciones.ContraseñaIncorrectaExcepcion;
+import org.sebastian.excepciones.EmailEnUsoExcepcion;
+import org.sebastian.excepciones.EmailNoEncontrado;
+import org.sebastian.service.jwt.JwtTokenService;
+import org.sebastian.service.jwt.JwtTokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,12 +17,24 @@ import java.util.Objects;
 import java.util.Optional;
 
 
+
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
 
-    @Autowired
+
+    private final JwtTokenService tokenService;
+
+
     private UsuarioDAO usuarioDAO;
+
+    @Autowired
+    public UsuarioServiceImpl(JwtTokenService tokenService, UsuarioDAO usuarioDAO) {
+        this.tokenService = tokenService;
+        this.usuarioDAO = usuarioDAO;
+    }
+
+
 
     @Override
     public List<Usuario> obtenerUsuarios() {
@@ -31,11 +48,11 @@ public class UsuarioServiceImpl implements UsuarioService {
             // Verificar si el correo electrónico ya está en uso
             Optional<Usuario> usuarioExistente = usuarioDAO.findByEmail(usuario.getEmail());
             if (usuarioExistente.isPresent()) {
-                mensaje =  "El correo electrónico ya está en uso";
+                throw new EmailEnUsoExcepcion();
             }else{
             // Si el correo electrónico no está en uso, guardar el usuario
             usuarioDAO.save(usuario);
-            mensaje = "Registro exitoso";}
+            mensaje =  this.tokenService.generateToken(usuario.getEmail(),usuario.getPassword());}
         } catch (Exception e) {
             mensaje ="Error al intentar guardar el usuario: " + e.getMessage();
         }
@@ -62,7 +79,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
     @Override
-    public String verificarLogin(String email, String contrasenia) {
+    public String verificarLogin(String email, String contrasenia) throws ContraseñaIncorrectaExcepcion, EmailNoEncontrado {
         String mensaje;
         Optional<Usuario> optionalUser = this.encontrarUsuarioPorEmail(email);
 
@@ -70,17 +87,13 @@ public class UsuarioServiceImpl implements UsuarioService {
             Usuario user = optionalUser.get();
 
             if (Objects.equals(contrasenia, user.getPassword())) {
-
-                mensaje = "Login exitoso";
-
+                mensaje = this.tokenService.generateToken(email,contrasenia);
             } else {
-
-                mensaje = "Contraseña incorrecta";
-
+                throw new ContraseñaIncorrectaExcepcion();
             }
         } else {
 
-            mensaje = "Email no encontrado";
+            throw new EmailNoEncontrado();
 
         }
         return mensaje;

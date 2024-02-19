@@ -33,13 +33,12 @@ export class LoginComponent  {
       this.service.login(email, password).subscribe(
         (response) => {
 
-          if (response.mensaje == "Login exitoso"){
+          if (response.token ){
              this.router.navigate(['/inicio'])
 
           }
           else {
-             this.mostrarMensaje = response.mensaje
-
+             this.mostrarMensaje = response.error
           }
 
 

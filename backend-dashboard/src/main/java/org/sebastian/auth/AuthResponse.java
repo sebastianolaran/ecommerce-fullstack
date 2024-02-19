@@ -17,7 +17,9 @@ import lombok.NoArgsConstructor;
 public class AuthResponse {
 
 
-    String mensaje;
+    String token;
+
+    String error;
 
 
 }

@@ -1,6 +1,8 @@
 package org.sebastian.service.usuario;
 
 import org.sebastian.domain.Usuario;
+import org.sebastian.excepciones.ContraseñaIncorrectaExcepcion;
+import org.sebastian.excepciones.EmailNoEncontrado;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +48,7 @@ public interface UsuarioService {
      * @param contrasenia La contraseña del usuario que se requiere encontrar
      * @return Un string que indica el estado final de la operacion
      */
-    String verificarLogin(String email, String contrasenia);
+    String verificarLogin(String email, String contrasenia) throws ContraseñaIncorrectaExcepcion, EmailNoEncontrado;
 
 
 }
