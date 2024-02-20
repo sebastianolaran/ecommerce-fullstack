@@ -12,9 +12,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @Component
 @Service
@@ -23,15 +25,13 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     @Value("${jwt.expiration}")
     private int jwtExpirationMs;
 
-    // Clave secreta para validar el token
-    private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+    @Value("${jwt.secretKey}")
+    private String secretKey;
+
 
     @Override
     public String generateToken(String email, String contrasenia) {
         Date expirationDate = new Date(System.currentTimeMillis() + jwtExpirationMs);
-
-        // Generar una nueva clave segura para HS512
-        SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
 
 
@@ -46,13 +46,16 @@ public class JwtTokenServiceImpl implements JwtTokenService {
                 .setClaims(claims)
                 .setIssuedAt(new Date())
                 .setExpiration(expirationDate)
-                .signWith(secretKey)
+                .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }
+
 
     @Override
     public JwtTokenData parseToken(String token) throws JwtTokenException {
         try {
+            // Convertir la clave secreta de String a bytes
+
             // Analizar el token para obtener sus claims
             Jws<Claims> claimsJws = Jwts.parserBuilder()
                     .setSigningKey(secretKey)
@@ -64,12 +67,19 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
             // Obtener los datos relevantes del token
             String email = claims.getSubject();
-            String contrasenia = (String) claims.get("contrasenia");
             String rol = (String) claims.get("rol");
             Date expirationDate = claims.getExpiration();
 
+            // Crear un logger
+            Logger logger = Logger.getLogger("JwtTokenParser");
+
+            // Registrar los datos obtenidos
+            logger.info("Email: " + email);
+            logger.info("Rol: " + rol);
+            logger.info("Fecha de expiración: " + expirationDate);
+
             // Devolver los datos en un objeto JwtTokenData
-            return new JwtTokenData(email, contrasenia, rol, expirationDate);
+            return new JwtTokenData(email, rol, expirationDate);
         } catch (Exception e) {
             // Manejar cualquier excepción que ocurra al analizar el token
             throw new JwtTokenException("Error al analizar el token: " + e.getMessage());
