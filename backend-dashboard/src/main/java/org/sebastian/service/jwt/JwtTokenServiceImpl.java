@@ -9,6 +9,7 @@ import org.sebastian.domain.JwtTokenData;
 import org.sebastian.excepciones.JwtTokenException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
+@Service
 public class JwtTokenServiceImpl implements JwtTokenService {
 
     @Value("${jwt.expiration}")
