@@ -60,4 +60,7 @@ export class AgregarProductoComponent {
   }
 
 
+   volver() {
+      this.router.navigate(['/productos']);
+   }
 }

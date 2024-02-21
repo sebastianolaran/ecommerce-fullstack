@@ -18,7 +18,7 @@ import {catchError, EMPTY} from "rxjs";
 export class EditarProductoComponent implements OnInit {
 
 
-  opcionesEnum = Object.values(Categorias);
+  opcionesEnum: Categorias[] = Object.values(Categorias);
 
   id_producto: string | undefined
 
@@ -56,7 +56,7 @@ export class EditarProductoComponent implements OnInit {
 
   }
 
-  protected readonly FormGroup = FormGroup;
+
 
   editarProducto() {
     const nombreControl = this.formularioEdicion.get("nombre")
@@ -90,6 +90,9 @@ export class EditarProductoComponent implements OnInit {
   }
 
 
+   volver() {
+      this.router.navigate(['/productos']);
+   }
 }
 
 

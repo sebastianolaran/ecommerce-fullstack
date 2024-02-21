@@ -1,28 +1,29 @@
 <div class="box">
-  <div class="registration-box">
+   <button (click)="volver()" class="volver-btn">Volver</button>
+   <div class="registration-box">
 
-    <h1>Registro</h1>
+      <h1>Agregar producto</h1>
 
-    <form (ngSubmit)="onRegister()" [formGroup]="formularioRegistro">
+      <form (ngSubmit)="onRegister()" [formGroup]="formularioRegistro">
 
-      <label for="nombre">Nombre</label>
-      <input type="text" id="nombre" formControlName="nombre" placeholder="Nombre del Producto"><br>
+         <label for="nombre">Nombre</label>
+         <input type="text" id="nombre" formControlName="nombre" placeholder="Nombre del Producto"><br>
 
-      <label for="precio">Precio</label>
-      <input type="text" id="precio" formControlName="precio" placeholder="Precio"><br>
+         <label for="precio">Precio</label>
+         <input type="text" id="precio" formControlName="precio" placeholder="Precio"><br>
 
-      <label for="categoria">Categoria</label>
-      <select id="categoria" formControlName="categoria" placeholder="Categoria">
-        @for (opcion of opcionesEnum; track opcion) {
-          <option [value]="opcion">{{ opcion }}</option>
-        }
-      </select>
+         <label for="categoria">Categoria</label>
+         <select id="categoria" formControlName="categoria" placeholder="Categoria">
+            @for (opcion of opcionesEnum; track opcion) {
+               <option [value]="opcion">{{ opcion }}</option>
+            }
+         </select>
 
-      <label for="descripcion">Confirm Password</label>
-      <input type="text" id="descripcion" formControlName="descripcion" placeholder="Descripcion">
+         <label for="descripcion">Descripcion</label>
+         <input type="text" id="descripcion" formControlName="descripcion" placeholder="Descripcion">
 
-      <button type="submit" class="btn btn-primary" [disabled]="formularioRegistro.invalid">Agregar Producto</button>
+         <button type="submit" class="btn btn-primary" [disabled]="formularioRegistro.invalid">Agregar Producto</button>
 
-    </form>
-  </div>
+      </form>
+   </div>
 </div>

@@ -1,7 +1,8 @@
 <div class="box">
   <div class="registration-box">
+     <button (click)="volver()" class="volver-btn">Volver</button>
 
-    <h1>Registro</h1>
+    <h1>Producto</h1>
 
     <form [formGroup]="formularioEdicion" (submit)="editarProducto()">
 
@@ -18,7 +19,7 @@
         }
       </select>
 
-      <label for="descripcion">Confirm Password</label>
+      <label for="descripcion">Descripcion</label>
       <input type="text" id="descripcion" formControlName="descripcion" placeholder="Descripcion">
 
       <button type="submit" class="btn btn-primary" [disabled]="formularioEdicion.invalid">Modificar Producto</button>

@@ -42,14 +42,35 @@ export class DataService {
 
 
   obtenerProducto(id_producto: string | undefined) : Observable<Producto>{
-    return this.http.get<Producto>(`${this.apiUrl}/buscar/${id_producto}`)
+     const token = localStorage.getItem('token');
+
+
+
+     // Configurar el encabezado con el token JWT
+     const httpOptions = {
+        headers: new HttpHeaders({
+           'Authorization': `Bearer ${token}`
+        })
+     };
+    return this.http.get<Producto>(`${this.apiUrl}/buscar/${id_producto}`,httpOptions)
   }
 
 
   editarProducto(id_producto: string | undefined, nombre: string | null, precio: string | null, categoria: string | null, descripcion: string | null): Observable<any>{
-    const credencial = {id_producto,nombre,precio,categoria,descripcion}
+
+     const token = localStorage.getItem('token');
+
+     console.log("Logo" + token)
+
+     // Configurar el encabezado con el token JWT
+     const httpOptions = {
+        headers: new HttpHeaders({
+           'Authorization': `Bearer ${token}`
+        })
+     };
+     const credencial = {id_producto,nombre,precio,categoria,descripcion}
     console.log(credencial)
-    return this.http.post<any>(`${this.apiUrl}/editar`,credencial)
+    return this.http.post<any>(`${this.apiUrl}/editar`,credencial,httpOptions)
   }
 
 }
