@@ -10,7 +10,7 @@
       padding: .4rem .8rem;
       transition: all 0.5s ease;
       color: azure;
-
+      position:fixed;
       flex-direction: column;
       justify-content: space-between;
    }

@@ -32,10 +32,20 @@ export class OrdenService {
    }
 
 
-   obtenerProductos(id_orden: number) {
+   obtenerProductos(id_orden: string) {
+      const token = localStorage.getItem('token');
+
+      console.log(token)
+
+      // Configurar el encabezado con el token JWT
+      const httpOptions = {
+         headers: new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+         })
+      };
       const credencial = {id_orden}
       console.log(credencial);
-      return this.http.post<any>(`${this.apiUrl}/productos`, credencial)
+      return this.http.post<any>(`${this.apiUrl}/productos`, credencial,httpOptions)
    }
 
 

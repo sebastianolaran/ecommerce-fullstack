@@ -1,46 +1,54 @@
 @if (ordenesResultados | async; as resultObject) {
 
 
-  <div class="main">
+   <div class="main">
 
-    <app-nav-bar></app-nav-bar>
+      <app-nav-bar></app-nav-bar>
 
 
-    <div class='inicial'>
+      <div class='inicial'>
 
-      <button class='add' (click)="agregarOrden()">Añadir Orden</button>
+         <button class='add' (click)="agregarOrden()">Añadir Orden</button>
 
-      <div class='ordenes'>
-        <h3>Ordenes</h3>
-        <div class='ordenes-info'>
-          @for (orden of resultObject; track orden.id_orden) {
-            <div class='orden'>
-              <p class='id_orden'>{{ orden.id_orden }}</p>
-              <p class='precio-orden'>{{ orden.monto }}</p>
+         <div class='ordenes'>
+            <h3>Ordenes</h3>
+            <div class="info-tabla">
+               <p>Id de orden</p>
+               <p>Monto total de orden</p>
+               <span></span>
 
-              <div class='botones'>
-                <button class='info' (click)="verOrden(orden.id_orden)">Info</button>
-                <button class='delete' (click)="borrarOrden(orden.id_orden)">Delete</button>
-              </div>
-              @if (mostrarDetallesFlag && orden.id_orden === ordenSeleccionada) {
-                <p>Orden numero: {{ orden.id_orden }}</p>
-                <p>Monto: {{ orden.monto }}</p>
-                <p>Productos :</p>
-                  @for (producto of productosDeOrden; track producto) {
-                  <div class='producto'>
-                    <p class='nombre-producto'>{{ producto.nombre }}</p>
-                    <p>{{producto.precio}}</p>
-                    <p>Cantidad : {{producto.cantidad}}</p>
-                  </div>
-                }
-              }
             </div>
+            <div class='ordenes-info'>
+               @for (orden of resultObject; track orden.id_orden) {
+                  <div class='orden'>
+                     <p class='id_orden'>{{ orden.id_orden }}</p>
+                     <p class='precio-orden'>{{ orden.monto }}</p>
 
-          }
-        </div>
+                     <div class='botones'>
+                        <button class='info' (click)="verOrden(orden.id_orden)">Info</button>
+                        <button class='delete' (click)="borrarOrden(orden.id_orden)">Delete</button>
+                     </div>
+                     <div class="info-orden" id="{{orden.id_orden}}">
+                        @if (mostrarDetallesFlag && orden.id_orden === ordenSeleccionada) {
+                           <p>Productos</p>
+                           <div class ="productos">
+                           @for (producto of productosDeOrden; track producto) {
+                              <div class='producto'>
+                                 <p class='nombre-producto'>{{ producto.nombre }}</p>
+                                 <p> Precio unitario: {{ producto.precio }}</p>
+                                 <p>Cantidad : {{ producto.cantidad }}</p>
+                              </div>
+                           }
+                           </div>
+                        }
+                     </div>
+                  </div>
+
+               }
+            </div>
+         </div>
       </div>
-    </div>
-  </div>
-  <router-outlet></router-outlet>
+   </div>
+   <router-outlet></router-outlet>
 }
 

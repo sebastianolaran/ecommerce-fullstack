@@ -21,7 +21,7 @@ public interface DetalleOrdenDAO extends JpaRepository<DetalleOrden, Long> {
             "FROM Producto p " +
             "JOIN DetalleOrden op ON p.id_producto = op.producto " +
             "WHERE op.id_orden = :idOrden")
-    List<Long> obtenerIdsProductosDeOrden(@Param("idOrden") Long idOrden);
+    List<Long> obtenerIdsProductosDeOrden(@Param("idOrden") String idOrden);
 
 
     /**
@@ -35,5 +35,5 @@ public interface DetalleOrdenDAO extends JpaRepository<DetalleOrden, Long> {
     @Query("SELECT do.cantidad " +
             "FROM DetalleOrden do " +
             "WHERE do.id_orden = :idOrden AND do.producto = :id")
-    int obtenerCantidadDeProductoConId(Long idOrden, Long id);
+    int obtenerCantidadDeProductoConId(String idOrden, Long id);
 }

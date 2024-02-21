@@ -25,7 +25,7 @@ export class OrdenesComponent implements OnInit {
    public ordenesResultados!: Observable<Orden[]>
    public errorMessage!: string;
    mostrarDetallesFlag: boolean = false;
-   ordenSeleccionada: number | undefined;
+   ordenSeleccionada: string | undefined;
    productosDeOrden: ProductoConCantidad[] = [];
 
 
@@ -41,7 +41,7 @@ export class OrdenesComponent implements OnInit {
    }
 
 
-   borrarOrden(id_orden: number) {
+   borrarOrden(id_orden: string) {
       this.service.eliminarOrden(id_orden.toString()).subscribe(
          response => {
             console.log('Successfully deleted product:', response);
@@ -54,20 +54,28 @@ export class OrdenesComponent implements OnInit {
       );
    }
 
-   verOrden(idOrden: number): void {
-      if (this.mostrarDetallesFlag && this.ordenSeleccionada == idOrden) {
-         this.mostrarDetallesFlag = false;
-      } else {
-         this.mostrarDetallesFlag = true;
-
-         this.ordenSeleccionada = idOrden;
-
-         // Llama a tu servicio para obtener los productos de la orden seleccionada
-         this.obtenerProductos(idOrden);
+   verOrden(idOrden: string): void {
+      const elemento = document.getElementById(`${idOrden}`);
+      if (elemento) {
+         if (this.mostrarDetallesFlag && this.ordenSeleccionada === idOrden) {
+            elemento.classList.remove('activo');
+            this.mostrarDetallesFlag = false;
+         } else {
+            const elementosActivos = document.querySelectorAll('.info-orden.activo');
+            elementosActivos.forEach((elementoActivo) => {
+               elementoActivo.classList.remove('activo');
+            });
+            elemento.classList.add('activo');
+            this.mostrarDetallesFlag = true;
+            this.ordenSeleccionada = idOrden;
+            // Llama a tu servicio para obtener los productos de la orden seleccionada
+            this.obtenerProductos(idOrden);
+         }
       }
    }
 
-   obtenerProductos(idOrden: number): void {
+
+   obtenerProductos(idOrden: string): void {
       if (this.componenteEstaActivo()) {
          this.service.obtenerProductos(idOrden).subscribe(
             productos => {

@@ -1,5 +1,5 @@
 export interface Orden {
-  id_orden: number,
+  id_orden: string,
   monto: number,
   fecha: string,
   productos: string,

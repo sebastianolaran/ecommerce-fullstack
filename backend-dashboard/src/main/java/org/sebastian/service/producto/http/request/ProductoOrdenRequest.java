@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductoOrdenRequest {
-    Long id_orden;
+    String id_orden;
 
 }
 

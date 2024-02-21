@@ -92,7 +92,7 @@ public class ControladorOrden {
 
     @PostMapping("/productos")
     public ResponseEntity<List<ProductoConCantidad>> obtenerProductos(@RequestBody ProductoOrdenRequest request) {
-        Long orden_id = request.getId_orden();
+        String orden_id = request.getId_orden();
         List<ProductoConCantidad> productos = detalleOrdenService.obtenerProductos(orden_id);
         return new ResponseEntity<>(productos, HttpStatus.OK);
 

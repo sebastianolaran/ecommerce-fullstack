@@ -12,7 +12,7 @@ public interface DetalleOrdenService {
      * @param idOrden El ID de la orden para la cual se desean obtener los productos.
      * @return Una lista de  productos asociados a la orden especificada.
      */
-    List<ProductoConCantidad> obtenerProductos(Long idOrden);
+    List<ProductoConCantidad> obtenerProductos(String idOrden);
 
 
     /**

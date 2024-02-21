@@ -23,7 +23,7 @@ public class DetalleOrdenServiceImpl implements DetalleOrdenService {
     private ProductoService productoService;
 
     @Override
-    public List<ProductoConCantidad> obtenerProductos(Long idOrden) {
+    public List<ProductoConCantidad> obtenerProductos(String idOrden) {
 
         List<Long> id_productos = this.detalleOrdenDAO.obtenerIdsProductosDeOrden(idOrden);
         List<ProductoConCantidad> productos = new ArrayList<>();
