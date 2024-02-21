@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable} from 'rxjs';
 import {Producto} from "../../interfaces/producto";
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 
 @Injectable({
@@ -15,8 +15,16 @@ export class DataService {
   private apiUrl = 'http://localhost:8080/api/productos'; // Reemplaza con la URL de tu servidor
 
   obtenerProductos(): Observable<Producto[]> {
-    console.log('Realizando solicitud HTTP...');
-    return this.http.get<Producto[]>(`${this.apiUrl}/`)
+     const token = localStorage.getItem('token');
+
+
+     // Configurar el encabezado con el token JWT
+     const httpOptions = {
+        headers: new HttpHeaders({
+           'Authorization': `Bearer ${token}`
+        })
+     };
+    return this.http.get<Producto[]>(`${this.apiUrl}/`,httpOptions)
   }
 
 

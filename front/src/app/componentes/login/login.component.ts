@@ -34,6 +34,7 @@ export class LoginComponent  {
         (response) => {
 
           if (response.token ){
+             localStorage.setItem('token', response.token);
              this.router.navigate(['/inicio'])
 
           }

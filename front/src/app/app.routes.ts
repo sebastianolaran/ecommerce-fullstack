@@ -5,7 +5,7 @@ import {OrdenesComponent} from "./pages/ordenes/ordenes.component";
 import {LoginComponent} from "./componentes/login/login.component";
 
 import { RegisterComponent } from './componentes/register/register.component';
-import { InicioDashboardComponent } from './componentes/inicio-dashboard/inicio-dashboard.component';
+import { InicioDashboardComponent } from './pages/inicio-dashboard/inicio-dashboard.component';
 import {AgregarProductoComponent} from "./componentes/agregar-producto/agregar-producto.component";
 import {EditarProductoComponent} from "./componentes/editar-producto/editar-producto.component";
 import {AgregarOrdenComponent} from "./componentes/agregar-orden/agregar-orden.component";
