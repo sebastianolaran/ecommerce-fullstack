@@ -13,8 +13,8 @@
          <div class='ordenes'>
             <h3>Ordenes</h3>
             <div class="info-tabla">
-               <p>Id de orden</p>
-               <p>Monto total de orden</p>
+               <p class="id-tabla">Id de orden</p>
+               <p class="monto-tabla">Monto total de orden</p>
                <span></span>
 
             </div>
@@ -22,7 +22,7 @@
                @for (orden of resultObject; track orden.id_orden) {
                   <div class='orden'>
                      <p class='id_orden'>{{ orden.id_orden }}</p>
-                     <p class='precio-orden'>{{ orden.monto }}</p>
+                     <p class='precio-orden'>{{ orden.monto }}$</p>
 
                      <div class='botones'>
                         <button class='info' (click)="verOrden(orden.id_orden)">Info</button>

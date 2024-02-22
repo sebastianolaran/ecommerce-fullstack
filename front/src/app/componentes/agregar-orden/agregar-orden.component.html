@@ -1,6 +1,9 @@
-<h2>Formulario de Productos</h2>
 
+
+<button (click)="volver()" class="volver-btn">Volver</button>
+<div class="formulario">
 <form>
+   <h2>Formulario de Productos</h2>
    <fieldset>
       <legend>Productos</legend>
 
@@ -13,12 +16,20 @@
 
       <button type="button" (click)="agregarProducto(productoSeleccionado)">Agregar Producto</button>
 
-      <div>
+      <div class="mensaje-error">
+         <p>   {{ mostrarMensaje }} </p>
+      </div>
+
+      <div id="productos-agregados">
          @for (producto of productosAgregados; track producto) {
+            <div class="producto">
             <p>{{ producto.nombre }} - Cantidad: {{ producto.cantidad }}</p>
+            <button (click)="eliminar(producto.nombre)">Borrar</button>
+               </div>
          }
       </div>
    </fieldset>
 
    <button type="button" [disabled]="!puedoEnviar()" (click)="enviarFormulario()">Enviar</button>
 </form>
+</div>

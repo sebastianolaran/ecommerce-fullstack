@@ -25,6 +25,7 @@ export class AgregarOrdenComponent implements OnInit {
    productoSeleccionado: string = '';
    cantidadSeleccionada: number = 0;
    productosAgregados: ProductoConCantidad[] = [];
+   mostrarMensaje: string | undefined = "La cantidad debe ser mayor a 0";
 
 
    constructor(private service: DataService, private ordenService: OrdenService,private router: Router) {
@@ -33,32 +34,41 @@ export class AgregarOrdenComponent implements OnInit {
 
 
    ngOnInit(): void {
-      this.productosResultados = this.service.obtenerProductos().pipe(catchError((error: string) => {
+      this.productosResultados = this.service.obtenerProductos().pipe(catchError(() => {
          return EMPTY;
       }))
    }
 
    agregarProducto(nombreProducto: string) {
-      console.log("LLega hasdta axa")
-      this.productosResultados.subscribe(productos => {
-         console.log(nombreProducto)
-         const producto = productos.find(opcion => opcion.nombre === nombreProducto);
-         if (producto) {
-            const nuevoProducto: ProductoConCantidad = {
-               nombre: this.productoSeleccionado,
-               cantidad: this.cantidadSeleccionada,
-               id_producto: producto.id_producto,
-               categoria: producto.categoria,
-               descripcion: producto.descripcion,
-               precio: producto.precio
-            };
-            this.productosAgregados.push(nuevoProducto);
-            // Limpiar campos después de agregar el producto si es necesario
-            this.productoSeleccionado = '';
-            this.cantidadSeleccionada = 0;
-            console.log(nuevoProducto);
-         }
-      });
+      const elemento = document.getElementsByClassName("mensaje-error")[0];
+      if (this.cantidadSeleccionada > 0) {
+         elemento.classList.remove('activo');
+         this.productosResultados.subscribe(productos => {
+            console.log(nombreProducto)
+            const producto = productos.find(opcion => opcion.nombre === nombreProducto);
+            if (producto) {
+               const nuevoProducto: ProductoConCantidad = {
+                  nombre: this.productoSeleccionado,
+                  cantidad: this.cantidadSeleccionada,
+                  id_producto: producto.id_producto,
+                  categoria: producto.categoria,
+                  descripcion: producto.descripcion,
+                  precio: producto.precio
+               };
+               this.productosAgregados.push(nuevoProducto);
+               // Limpiar campos después de agregar el producto si es necesario
+               this.productoSeleccionado = '';
+               this.cantidadSeleccionada = 0;
+               console.log(nuevoProducto);
+            }
+         });
+      }
+      else{
+
+         elemento.classList.add('activo');
+         this.productoSeleccionado = '';
+         this.cantidadSeleccionada = 0;
+      }
    }
 
    puedoEnviar(): boolean {
@@ -109,5 +119,12 @@ export class AgregarOrdenComponent implements OnInit {
    }
 
 
+   volver() {
+      this.router.navigate(['/ordenes'])
+   }
+
+   eliminar(nombre:string) {
+      this.productosAgregados = this.productosAgregados.filter(producto => producto.nombre !== nombre);
+   }
 
 }

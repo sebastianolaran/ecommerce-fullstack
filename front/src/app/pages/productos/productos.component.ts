@@ -40,7 +40,7 @@ export class ProductosComponent implements OnInit {
     this.service.eliminarProducto(id_producto).subscribe(
       response => {
         console.log('Successfully deleted product:', response);
-        this.location.go(this.location.path()); // Recarga la página actual
+         window.location.reload();
       },
       error => {
         console.error('Error deleting product:', error);

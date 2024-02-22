@@ -70,3 +70,18 @@ button:hover {
    background-color: darkred;
 }
 
+
+
+.mensaje-error.activo{
+   display: block;
+   margin-top: 1rem;
+}
+
+
+.mensaje-error{
+   display: none;
+}
+
+.mensaje-error p{
+   font-weight: bold;
+}

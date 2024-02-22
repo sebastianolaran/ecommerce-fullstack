@@ -29,15 +29,34 @@ export class DataService {
 
 
   eliminarProducto(id_producto : number):  Observable<any>{
+     const token = localStorage.getItem('token');
+
+
+     // Configurar el encabezado con el token JWT
+     const httpOptions = {
+        headers: new HttpHeaders({
+           'Authorization': `Bearer ${token}`
+        })
+     };
+
     const credencial = {id_producto}
-    return this.http.post<any>(`${this.apiUrl}/eliminar`,credencial)
+    return this.http.post<any>(`${this.apiUrl}/eliminar`,credencial,httpOptions)
   }
 
 
   agregarProducto(nombre: string | null, precio: string | null, categoria: string | null, descripcion: string | null): Observable<any>{
     const credencial = {nombre,precio,categoria,descripcion}
+     const token = localStorage.getItem('token');
+
+
+     // Configurar el encabezado con el token JWT
+     const httpOptions = {
+        headers: new HttpHeaders({
+           'Authorization': `Bearer ${token}`
+        })
+     };
     console.log(credencial)
-    return this.http.post<any>(`${this.apiUrl}/agregar`,credencial)
+    return this.http.post<any>(`${this.apiUrl}/agregar`,credencial,httpOptions)
   }
 
 
@@ -45,8 +64,6 @@ export class DataService {
      const token = localStorage.getItem('token');
 
 
-
-     // Configurar el encabezado con el token JWT
      const httpOptions = {
         headers: new HttpHeaders({
            'Authorization': `Bearer ${token}`
@@ -59,8 +76,6 @@ export class DataService {
   editarProducto(id_producto: string | undefined, nombre: string | null, precio: string | null, categoria: string | null, descripcion: string | null): Observable<any>{
 
      const token = localStorage.getItem('token');
-
-     console.log("Logo" + token)
 
      // Configurar el encabezado con el token JWT
      const httpOptions = {

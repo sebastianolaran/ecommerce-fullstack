@@ -5,7 +5,7 @@
    display: flex;
    flex-direction: column;
    background-color: #F5F5F5;
-   margin-left: 12.2rem;
+
 }
 
 
@@ -158,6 +158,10 @@
 }
 
 
+.id-tabla , .monto-tabla{
+   font-weight: bold;
+}
+
 
 .info-orden{
    display: none;
@@ -166,12 +170,26 @@
 
 
 
+@media only screen and (min-height: 767px) {
+
+   .inicial{
+      margin-left: 12.2rem;
+   }
+   .add {
+      height: 3rem;
+   }
+
+   .producto {
+      margin: 1rem 0;
+   }
+}
+
 
 
 @media only screen and (max-width: 767px) {
 
    .inicial{
-      margin: 0;
+      margin: 0rem 0rem;
    }
    .add {
       height: 3rem;
