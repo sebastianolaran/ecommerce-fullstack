@@ -377,3 +377,5 @@ a
 1front/src/app/pages/ordenes/ordenes.component.css,4\d\4dc1b29f65120a5afea7d6294fdc096eb7b2f0b1
 •
 ebackend-dashboard/src/main/java/org/sebastian/service/producto/http/request/ProductoOrdenRequest.java,a\1\a1704ceba62bc9e8a19dfa40c74d9023d6b67319
+s
+Cfront/src/app/pages/inicio-dashboard/inicio-dashboard.component.css,a\c\acc2ea910e8bd899d54c0783ba9d594e8bf2b2b9

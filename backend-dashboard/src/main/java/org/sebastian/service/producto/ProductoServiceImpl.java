@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.sebastian.dao.ProductoDAO;
 import org.sebastian.domain.Producto;
 
+import org.sebastian.excepciones.ProductoExistente;
 import org.sebastian.service.producto.http.request.EditarRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,24 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public void guardar(Producto producto) {
-        productoDAO.save(producto);
+    public String guardar(Producto producto) throws ProductoExistente {
+        String mensaje;
+        if( this.existeProducto(producto.getNombre())){
+            throw new ProductoExistente();
+        }
+        else {
+            productoDAO.save(producto);
+            mensaje = "Guardado correcto";
+        }
+
+        return mensaje;
+
+    }
+
+
+
+    private boolean existeProducto(String nombre) {
+        return productoDAO.encontrarPorNombre(nombre).isPresent();
     }
 
     @Override

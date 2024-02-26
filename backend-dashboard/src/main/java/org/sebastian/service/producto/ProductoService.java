@@ -1,6 +1,7 @@
 package org.sebastian.service.producto;
 
 import org.sebastian.domain.Producto;
+import org.sebastian.excepciones.ProductoExistente;
 import org.sebastian.service.producto.http.request.EditarRequest;
 
 
@@ -19,7 +20,7 @@ public interface ProductoService {
      * @param producto El producto a agregar en la base de datos
      */
 
-    void guardar(Producto producto);
+    String guardar(Producto producto) throws ProductoExistente;
 
 
     /**
@@ -44,4 +45,6 @@ public interface ProductoService {
      */
 
     String editarProducto(EditarRequest request);
+
+
 }

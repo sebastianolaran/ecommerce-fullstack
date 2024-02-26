@@ -2,6 +2,9 @@ package org.sebastian.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.sebastian.domain.Producto;
+import org.sebastian.excepciones.ContraseñaIncorrectaExcepcion;
+import org.sebastian.excepciones.EmailNoEncontrado;
+import org.sebastian.excepciones.ProductoExistente;
 import org.sebastian.service.producto.ProductoService;
 import org.sebastian.service.producto.http.request.AgregarRequest;
 import org.sebastian.service.producto.http.request.DeleteRequest;
@@ -35,20 +38,18 @@ public class ControladorProductos {
 
     // Guardar un nuevo producto
     @PostMapping("/agregar")
-    public ProductoResponse guardar(@RequestBody AgregarRequest request, Errors errors) {
+    public ProductoResponse guardar(@RequestBody AgregarRequest request) throws ProductoExistente {
+        ProductoResponse productoResponse = new ProductoResponse();
         Producto producto = new Producto(request.getNombre(), parseInt(request.getPrecio()), request.getCategoria(), request.getDescripcion());
-        if (errors.hasErrors()) {
-            // Si hay errores de validación, retorna un código de estado BAD_REQUEST
-
-            return ProductoResponse.builder()
-                    .mensaje("ERROR").build();
-        } else {
-            // Guarda el producto y retorna un código de estado CREATED
-            productoService.guardar(producto);
-            return ProductoResponse.builder()
-                    .mensaje("Agregado con exito").build();
+        try {
+            String mensaje = productoService.guardar(producto);
+            productoResponse.setMensaje(mensaje);
+        } catch (ProductoExistente e) {
+            productoResponse.setError(e.getMessage());
         }
+        return productoResponse;
     }
+
 
     // Obtener un producto para editar por su ID
     @GetMapping("/buscar/{id_producto}")

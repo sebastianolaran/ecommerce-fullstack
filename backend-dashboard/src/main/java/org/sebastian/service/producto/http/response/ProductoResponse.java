@@ -13,4 +13,6 @@ import lombok.NoArgsConstructor;
 public class ProductoResponse {
 
     String mensaje;
+
+    String error;
 }
