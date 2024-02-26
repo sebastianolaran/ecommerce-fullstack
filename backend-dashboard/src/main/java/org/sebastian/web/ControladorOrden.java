@@ -49,6 +49,8 @@ public class ControladorOrden {
     }
 
 
+
+    //TODO chequear los return y optmimizarlos
     @PostMapping("/guardar")
     public ResponseEntity<String> guardar(@RequestBody @Valid AgregarOrdenRequest request, Errors errors) {
         if (errors.hasErrors()) {
@@ -77,6 +79,7 @@ public class ControladorOrden {
 
     }
 
+    //TODO chequear los return y optmimizarlos
     @PostMapping("/eliminar")
     public ResponseEntity<Orden> eliminar(@RequestBody DeleteRequest request) {
         Long orden_id = request.getId_producto();
@@ -90,6 +93,7 @@ public class ControladorOrden {
     }
 
 
+    //TODO chequear los return y optmimizarlos
     @PostMapping("/productos")
     public ResponseEntity<List<ProductoConCantidad>> obtenerProductos(@RequestBody ProductoOrdenRequest request) {
         String orden_id = request.getId_orden();
@@ -97,6 +101,7 @@ public class ControladorOrden {
         return new ResponseEntity<>(productos, HttpStatus.OK);
 
     }
+
 
 
     @GetMapping("/id")
@@ -113,6 +118,7 @@ public class ControladorOrden {
 
 
 
+    //TODO chequear los return y optmimizarlos
     @PostMapping("/producto/agregar")
     public ResponseEntity<AgregarProductoConOrdenResponse> agregarProductoDeOrden(@RequestBody AgregarProductoConOrdenRequest request) {
         DetalleOrden orden = new DetalleOrden(request.getId_orden(), request.getId_producto(), request.getCantidad(), request.getPrecio_unitario());

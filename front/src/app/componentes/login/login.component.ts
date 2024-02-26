@@ -12,7 +12,7 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
   standalone: true,
   imports: [ReactiveFormsModule,RouterLink],
 })
-export class LoginComponent  {
+export class LoginComponent {
   formularioIngreso = this.fb.group({
     email: ['', Validators.required],
     password: ['', Validators.required]
@@ -22,6 +22,8 @@ export class LoginComponent  {
   constructor(private service: LoginService, private router: Router, private fb: FormBuilder) {
 
   }
+
+
 
    onSubmit() {
     const emailControl = this.formularioIngreso.get("email");

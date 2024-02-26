@@ -52,6 +52,7 @@ public class ControladorProductos {
 
 
     // Obtener un producto para editar por su ID
+    //TODO chequear los return y optmimizarlos
     @GetMapping("/buscar/{id_producto}")
     public ResponseEntity<Producto> encontrarProducto(@PathVariable Long id_producto) {
         Producto producto = productoService.encontrarProducto(id_producto);
@@ -67,6 +68,7 @@ public class ControladorProductos {
     }
 
 
+    //TODO chequear los return y optmimizarlos
     @PostMapping("/editar")
     public ProductoResponse editarProducto(@RequestBody EditarRequest request) {
         return (ProductoResponse.builder().mensaje(productoService.editarProducto(request)).build());
@@ -74,6 +76,7 @@ public class ControladorProductos {
 
 
     // Eliminar un producto por su ID
+    //TODO chequear los return y optmimizarlos
     @PostMapping("/eliminar")
     public ResponseEntity<Producto> eliminar(@RequestBody DeleteRequest request) {
         Long producto_id = request.getId_producto();
