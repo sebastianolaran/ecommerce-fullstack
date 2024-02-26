@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AsyncPipe} from "@angular/common";
 import {DataService} from "../../core/service/productos-service";
 import {catchError, EMPTY, map, Observable, tap} from "rxjs";
@@ -7,32 +7,34 @@ import {Producto} from "../../interfaces/producto";
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {NavBarComponent} from "../../componentes/nav-bar/nav-bar.component";
 
-import  {Location} from "@angular/common";
-import { CookieService } from 'ngx-cookie-service';
+import {Location} from "@angular/common";
+import {CookieService} from 'ngx-cookie-service';
 import {FormsModule} from "@angular/forms";
 
 @Component({
-  selector: 'app-productos',
+   selector: 'app-productos',
    imports: [AsyncPipe, RouterLink, RouterOutlet, NavBarComponent, FormsModule],
-  templateUrl: './productos.component.html',
-  standalone: true,
-  styleUrl: './productos.component.css'
+   templateUrl: './productos.component.html',
+   standalone: true,
+   styleUrl: './productos.component.css'
 
 })
 
 
 export class ProductosComponent implements OnInit {
 
-  public productosResultados$!: Observable<Producto[]>
-  public errorMessage!: string;
-  criterioOrdenamiento: string = "nombre";
 
-  constructor(private service: DataService,private router: Router,private location: Location , private cookieService: CookieService) {
+   public productosResultados$!: Observable<Producto[]>
+   public errorMessage!: string;
+   criterioOrdenamiento: string = "nombre";
 
-  }
+   constructor(private service: DataService, private router: Router, private location: Location, private cookieService: CookieService) {
+
+   }
 
    ngOnInit(): void {
-      this.criterioOrdenamiento = this.cookieService.get('criterioOrdenamiento') || 'nombre';
+      this.criterioOrdenamiento = this.cookieService.get('criterioOrdenamiento') ;
+      console.log(this.criterioOrdenamiento)
       this.ordenar();
    }
 
@@ -46,16 +48,26 @@ export class ProductosComponent implements OnInit {
    }
 
    ordenar(): void {
-      const criterio = this.criterioOrdenamiento;
-      console.log(criterio)
+      const selectElement = document.getElementById("opcionElegida") as HTMLSelectElement;
+      var criterio : string;
+      if (selectElement !=  null){
+         console.log("El criterio elegido es " + this.criterioOrdenamiento)
+         criterio = selectElement.value;
+      }
+      else{
+         criterio = this.criterioOrdenamiento;
+      }
+
       this.productosResultados$ = this.obtenerProductos().pipe(
          tap(() => this.cookieService.set('criterioOrdenamiento', criterio)), // Save sorting criteria in cookie
          map(productos => productos.slice()), // Create a shallow copy of the array
          map(productos => {
             switch (criterio) {
                case 'nombre':
+                  this.cookieService.set('criterioOrdenamiento', "nombre");
                   return productos.sort((a, b) => a.nombre.localeCompare(b.nombre));
                case 'precio':
+                  this.cookieService.set('criterioOrdenamiento', "precio");
                   return productos.sort((a, b) => a.precio - b.precio);
                default:
                   return productos;
@@ -65,31 +77,29 @@ export class ProductosComponent implements OnInit {
    }
 
 
-  eliminarProducto(id_producto: number): void {
-    this.service.eliminarProducto(id_producto).subscribe(
-      response => {
-        console.log('Successfully deleted product:', response);
-         window.location.reload();
-      },
-      error => {
-        console.error('Error deleting product:', error);
-        // Handle errors here
-      }
-    );
-  }
+   eliminarProducto(id_producto: number): void {
+      this.service.eliminarProducto(id_producto).subscribe(
+         response => {
+            console.log('Successfully deleted product:', response);
+            window.location.reload();
+         },
+         error => {
+            console.error('Error deleting product:', error);
+            // Handle errors here
+         }
+      );
+   }
 
 
-
-  agregarProducto(){
-    this.router.navigate(['/productos/agregar']);
-  }
-
-
-  editarProducto(id_producto: number){
-    this.router.navigate(['/productos/editar'],{ queryParams: { id: id_producto  } })
-  }
+   agregarProducto() {
+      this.router.navigate(['/productos/agregar']);
+   }
 
 
+   editarProducto(id_producto: number) {
+      this.router.navigate(['/productos/editar'], {queryParams: {id: id_producto}})
+   }
 
 
+   protected readonly event = event;
 }

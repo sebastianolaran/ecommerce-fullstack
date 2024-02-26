@@ -14,7 +14,8 @@
 
          <div class="titulo">
         <h3>Producto</h3>
-            <select (change)="ordenar()"  ngModel="{{criterioOrdenamiento}}">
+            <select id="opcionElegida" (change)="ordenar()">
+               <option value="default"> </option>
                <option value="nombre">Ordenar por Nombre</option>
                <option value="precio">Ordenar por Precio</option>
             </select>
