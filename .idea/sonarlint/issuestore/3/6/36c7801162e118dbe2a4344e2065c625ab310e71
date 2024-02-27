@@ -1,0 +1,5 @@
+
+Itypescript:S1128"-Remove this unused import of 'SimpleChanges'.(­§ÃŠ
+Ðtypescript:S1874R"³'(next?: ((value: string) => void) | null | undefined, error?: ((error: any) => void) | null | undefined, complete?: (() => void) | null | undefined): Subscription' is deprecated.(­†È»
+Òtypescript:S1874["°'(next?: ((value: any) => void) | null | undefined, error?: ((error: any) => void) | null | undefined, complete?: (() => void) | null | undefined): Subscription' is deprecated.(éÀ¼»ÿÿÿÿÿ
+Òtypescript:S1874i"°'(next?: ((value: any) => void) | null | undefined, error?: ((error: any) => void) | null | undefined, complete?: (() => void) | null | undefined): Subscription' is deprecated.(€¬•Þùÿÿÿÿ

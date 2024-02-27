@@ -1,0 +1,6 @@
+
+|typescript:S6582*"[Prefer using an optional chain expression instead, as it's more concise and easier to read.(Îò©ìùÿÿÿÿ
+wtypescript:S6582+"[Prefer using an optional chain expression instead, as it's more concise and easier to read.(‚Õ€ç
+|typescript:S6582,"[Prefer using an optional chain expression instead, as it's more concise and easier to read.(¨¤èÍþÿÿÿÿ
+wtypescript:S6582-"[Prefer using an optional chain expression instead, as it's more concise and easier to read.(ò’ðé
+Ítypescript:S18749"°'(next?: ((value: any) => void) | null | undefined, error?: ((error: any) => void) | null | undefined, complete?: (() => void) | null | undefined): Subscription' is deprecated.(üÿý•

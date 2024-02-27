@@ -1,0 +1,4 @@
+
+m	java:S116"SRename this field "id_orden" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(λτ¨όÿÿÿÿ
+p	java:S116"VRename this field "id_producto" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(γΎ£ύÿÿÿÿ
+n	java:S116"ZRename this field "precio_unitario" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½γιV

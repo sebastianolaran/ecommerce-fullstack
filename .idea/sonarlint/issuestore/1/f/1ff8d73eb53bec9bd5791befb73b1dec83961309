@@ -1,0 +1,9 @@
+
+Ktypescript:S1128"*Remove this unused import of 'ElementRef'.(‹×Ÿüÿÿÿÿ
+Jtypescript:S1128")Remove this unused import of 'ViewChild'.(‹×Ÿüÿÿÿÿ
+³typescript:S3863"–'C:\Users\urano\Desktop\Programacion\PROJECTOS\ecommerce-fullstack\frontend\node_modules\@angular\common\fesm2022\common.mjs' imported multiple times.(‡¢ïÌ
+¸typescript:S3863
+"–'C:\Users\urano\Desktop\Programacion\PROJECTOS\ecommerce-fullstack\frontend\node_modules\@angular\common\fesm2022\common.mjs' imported multiple times.(Àûè€ùÿÿÿÿ
+Etypescript:S35044")Unexpected var, use let or const instead.(ìû ë
+Ìtypescript:S1874Q"°'(next?: ((value: any) => void) | null | undefined, error?: ((error: any) => void) | null | undefined, complete?: (() => void) | null | undefined): Subscription' is deprecated.(Ä›Ûa
+7typescript:S1874h"'event' is deprecated.(¨¿úÿÿÿÿ
