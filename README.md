@@ -1,42 +1,15 @@
-Nombre del Proyecto
-Descripción
-Breve descripción del proyecto y su objetivo.
+# E commerce
 
-Instalación
-Requisitos Previos
+## Descripción
+Este proyecto es un dashboard para un sistema de comercio electrónico (e-commerce) que proporciona diversas funcionalidades para la gestión y análisis de datos relacionados con la tienda en línea. Con este dashboard, los usuarios pueden acceder y utilizar varias funcionalidades, como el seguimiento de ventas, análisis de inventario, gestión de pedidos, administración de productos y categorías, entre otras herramientas diseñadas para optimizar la operación y el rendimiento del e-commerce.
+
+## Instalación
+
+### Requisitos Previos
 Asegúrate de tener instalado Node.js y npm en tu sistema.
 
-Frontend
-Navega hasta la carpeta frontend.
-Ejecuta el siguiente comando para instalar las dependencias:
-bash
-Copy code
-npm install
-Una vez que se completen las instalaciones, puedes iniciar el servidor de desarrollo con:
-bash
-Copy code
-npm start
-Esto iniciará la aplicación frontend en tu navegador predeterminado.
-Backend
-Navega hasta la carpeta backend.
-Ejecuta el siguiente comando para instalar las dependencias:
-bash
-Copy code
-npm install
-Después de que se completen las instalaciones, puedes iniciar el servidor backend con:
-bash
-Copy code
-npm start
-Esto pondrá en marcha el servidor backend en el puerto predeterminado.
-Uso
-Proporciona instrucciones sobre cómo utilizar la aplicación una vez que los servidores estén en funcionamiento. Esto puede incluir la navegación en la interfaz de usuario, la llamada a API, etc.
-
-Contribución
-Explica cómo otros desarrolladores pueden contribuir al proyecto. Esto puede incluir instrucciones sobre cómo hacer un pull request, cómo reportar errores, etc.
-
-Licencia
-Indica la licencia bajo la cual se distribuye el proyecto.
-
-Contacto
-Proporciona información sobre cómo contactar al equipo de desarrollo en caso de preguntas o problemas.
-
+### Frontend
+1. Navega hasta la carpeta `frontend`.
+2. Ejecuta el siguiente comando para instalar las dependencias:
+   ```bash
+   npm install
