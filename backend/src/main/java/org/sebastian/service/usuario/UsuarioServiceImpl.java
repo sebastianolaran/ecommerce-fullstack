@@ -1,13 +1,11 @@
 package org.sebastian.service.usuario;
 
-import org.sebastian.auth.AuthResponse;
 import org.sebastian.dao.UsuarioDAO;
 import org.sebastian.domain.Usuario;
 import org.sebastian.excepciones.ContraseñaIncorrectaExcepcion;
 import org.sebastian.excepciones.EmailEnUsoExcepcion;
 import org.sebastian.excepciones.EmailNoEncontrado;
 import org.sebastian.service.jwt.JwtTokenService;
-import org.sebastian.service.jwt.JwtTokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
