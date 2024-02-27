@@ -1,7 +1,7 @@
 # E-commerce 
 
 ## Descripción
-Descripción
+
 Este proyecto es un dashboard para un sistema de comercio electrónico (e-commerce) que proporciona diversas funcionalidades para la gestión y análisis de datos relacionados con la tienda en línea. Con este dashboard, los usuarios pueden acceder y utilizar varias funcionalidades, como el seguimiento de ventas, análisis de inventario, gestión de pedidos, administración de productos y categorías, entre otras herramientas diseñadas para optimizar la operación y el rendimiento del e-commerce.
 
 El frontend de la aplicación está desarrollado utilizando Angular, ofreciendo una experiencia de usuario interactiva e intuitiva. Por otro lado, el backend está construido con Java, específicamente utilizando el framework Spring, que proporciona un entorno robusto y escalable para el desarrollo de aplicaciones web. La aplicación está conectada a una base de datos MySQL, donde se realizan operaciones y consultas para obtener y almacenar datos relacionados con los productos, pedidos y otras entidades del sistema.
