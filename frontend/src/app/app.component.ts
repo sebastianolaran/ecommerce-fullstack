@@ -10,7 +10,7 @@ import { InicioDashboardComponent } from './pages/inicio-dashboard/inicio-dashbo
   standalone: true,
   imports: [RouterOutlet, InicioDashboardComponent, NavBarComponent,ReactiveFormsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+
 })
 export class AppComponent {
   title = 'front';
