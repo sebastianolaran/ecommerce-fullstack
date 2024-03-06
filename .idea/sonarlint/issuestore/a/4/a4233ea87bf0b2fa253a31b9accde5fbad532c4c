@@ -1,0 +1,14 @@
+
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘à½Õøÿÿÿÿ
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘à½Õøÿÿÿÿ
+o	java:S116"URename this field "id_detalle" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒşÈ·üÿÿÿÿ
+m	java:S116"SRename this field "id_orden" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÆßóŒşÿÿÿÿ
+t	java:S116"ZRename this field "precio_unitario" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ç¶³Åùÿÿÿÿ
+G
+java:S1068",Remove this unused "id_orden" private field.(ÆßóŒşÿÿÿÿ
+B
+java:S1068",Remove this unused "producto" private field.(èÍÛ
+B
+java:S1068",Remove this unused "cantidad" private field.(Ã¨æá
+N
+java:S1068"3Remove this unused "precio_unitario" private field.(ç¶³Åùÿÿÿÿ

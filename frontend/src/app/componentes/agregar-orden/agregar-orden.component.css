@@ -1,0 +1,74 @@
+/* Estilo básico para el formulario */
+.formulario{
+   margin-top: 3rem;
+}
+
+fieldset {
+
+   border: 1px solid #ccc;
+   padding: 10px;
+}
+
+legend {
+   font-weight: bold;
+}
+
+select, input[type="number"] {
+   margin-bottom: 10px;
+   padding: 5px;
+   width: 100%;
+}
+
+button {
+   padding: 10px 20px;
+   background-color: #007bff;
+   color: white;
+   border: none;
+   cursor: pointer;
+}
+
+button:disabled {
+   background-color: #ccc;
+   cursor: not-allowed;
+}
+
+/* Estilo para los productos agregados */
+div#productos-agregados {
+   margin-top: 20px;
+}
+
+p {
+   margin: 0;
+}
+.volver-btn {
+   position: absolute;
+   top: 10px;
+   left: 10px;
+   background-color: red;
+   color: white;
+   width: 10vh;
+   border: none;
+   border-radius: 5px;
+   font-size: 14px;
+   cursor: pointer;
+}
+
+.volver-btn:hover {
+   background-color: darkred;
+}
+
+
+.producto{
+   display: flex;
+   justify-content: space-between;
+}
+
+
+.mensaje-error{
+   display: none;
+}
+
+
+.mensaje-error.activo{
+   display: block;
+}

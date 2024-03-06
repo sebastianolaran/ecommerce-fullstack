@@ -1,0 +1,54 @@
+@if (ordenesResultados | async; as resultObject) {
+
+
+   <div class="main">
+
+      <app-nav-bar></app-nav-bar>
+
+
+      <div class='inicial'>
+
+         <button class='add' (click)="agregarOrden()">Añadir Orden</button>
+
+         <div class='ordenes'>
+            <h3>Ordenes</h3>
+            <div class="info-tabla">
+               <p class="id-tabla">Id de orden</p>
+               <p class="monto-tabla">Monto total de orden</p>
+               <span></span>
+
+            </div>
+            <div class='ordenes-info'>
+               @for (orden of resultObject; track orden.id_orden) {
+                  <div class='orden'>
+                     <p class='id_orden'>{{ orden.id_orden }}</p>
+                     <p class='precio-orden'>{{ orden.monto }}$</p>
+
+                     <div class='botones'>
+                        <button class='info' (click)="verOrden(orden.id_orden)">Info</button>
+                        <button class='delete' (click)="borrarOrden(orden.id_orden)">Delete</button>
+                     </div>
+                     <div class="info-orden" id="{{orden.id_orden}}">
+                        @if (mostrarDetallesFlag && orden.id_orden === ordenSeleccionada) {
+                           <p>Productos</p>
+                           <div class ="productos">
+                           @for (producto of productosDeOrden; track producto) {
+                              <div class='producto'>
+                                 <p class='nombre-producto'>{{ producto.nombre }}</p>
+                                 <p> Precio unitario: {{ producto.precio }}</p>
+                                 <p>Cantidad : {{ producto.cantidad }}</p>
+                              </div>
+                           }
+                           </div>
+                        }
+                     </div>
+                  </div>
+
+               }
+            </div>
+         </div>
+      </div>
+   </div>
+   <router-outlet></router-outlet>
+}
+

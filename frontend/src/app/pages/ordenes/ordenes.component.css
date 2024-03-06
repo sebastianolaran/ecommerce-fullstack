@@ -1,0 +1,201 @@
+
+.main .inicial {
+
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+   background-color: #F5F5F5;
+
+}
+
+
+.add {
+   appearance: none;
+   background-color: #FAFBFC;
+   border: 1px solid rgba(27, 31, 35, 0.15);
+   border-radius: 6px;
+   box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+   box-sizing: border-box;
+   color: #24292E;
+   cursor: pointer;
+   display: inline-block;
+   font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+   font-size: 14px;
+   font-weight: 500;
+   line-height: 20px;
+   list-style: none;
+   padding: 6px 16px;
+   transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+   user-select: none;
+   -webkit-user-select: none;
+   touch-action: manipulation;
+   vertical-align: middle;
+   white-space: nowrap;
+   word-wrap: break-word;
+}
+
+.add :hover {
+   background-color: #F3F4F6;
+   text-decoration: none;
+   transition-duration: 0.1s;
+}
+
+
+.add:disabled {
+   background-color: #FAFBFC;
+   border-color: rgba(27, 31, 35, 0.15);
+   color: #959DA5;
+   cursor: default;
+}
+
+.add:active {
+   background-color: #EDEFF2;
+   box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+   transition: none 0s;
+}
+
+.add:focus {
+   outline: 1px transparent;
+}
+
+.add:before {
+   display: none;
+}
+
+
+.ordenes h3 {
+   margin: 1rem 0.5rem;
+   font-size: 2rem;
+}
+
+
+.orden, .info-tabla {
+   padding: 1rem 0.5rem;
+   justify-content: space-around;
+   appearance: none;
+   background-color: #FAFBFC;
+   border: 1px solid rgba(27, 31, 35, 0.15);
+   border-radius: 6px;
+   box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+   box-sizing: border-box;
+   color: #24292E;
+   margin: 1rem 0.5rem;
+   align-items: center;
+   display: grid;
+   grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual ancho */
+   grid-template-rows: auto auto; /* 2 filas de altura automática */
+   justify-items: center;
+
+
+}
+
+
+.nombre-producto {
+   font-size: 1.2rem;
+}
+
+.botones button {
+   margin: 0 1rem;
+   appearance: none;
+   background-color: #000000;
+   border: 2px solid #1A1A1A;
+   border-radius: 15px;
+   box-sizing: border-box;
+   color: #FFFFFF;
+   cursor: pointer;
+   padding: 0.3rem 1rem;
+   font-size: 16px;
+   font-weight: 600;
+   line-height: normal;
+   outline: none;
+
+
+}
+
+
+.botones i {
+   color: white;
+   font-size: 3rem;
+
+}
+
+
+
+
+
+.info-orden.activo {
+   display: flex;
+
+   flex-direction: column;
+   justify-content: left;
+}
+
+
+.productos{
+   display: flex;
+   flex-wrap: wrap;
+}
+
+
+.producto {
+
+   margin: 10px; /* Margen entre productos */
+   border: 1px solid #ccc; /* Borde de 1px sólido con color gris */
+   padding: 10px; /* Espaciado interno de 10px */
+   background-color: #f9f9f9; /* Color de fondo */
+}
+
+.producto p {
+
+}
+
+.nombre-producto {
+   font-weight: bold; /* Texto en negrita */
+}
+
+.nombre-producto, .producto p {
+   font-size: 14px; /* Tamaño de fuente */
+}
+
+
+.id-tabla , .monto-tabla{
+   font-weight: bold;
+}
+
+
+.info-orden{
+   display: none;
+}
+
+
+
+
+@media only screen and (min-height: 767px) {
+
+   .inicial{
+      margin-left: 12.2rem;
+   }
+   .add {
+      height: 3rem;
+   }
+
+   .producto {
+      margin: 1rem 0;
+   }
+}
+
+
+
+@media only screen and (max-width: 767px) {
+
+   .inicial{
+      margin: 0rem 0rem;
+   }
+   .add {
+      height: 3rem;
+   }
+
+   .producto {
+      margin: 1rem 0;
+   }
+}

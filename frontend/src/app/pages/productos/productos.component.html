@@ -1,0 +1,49 @@
+@if (productosResultados$ | async; as resultObject) {
+
+
+   <div class="main">
+
+      <app-nav-bar></app-nav-bar>
+
+
+      <div class='pantalla'>
+
+         <button class='add' (click)="agregarProducto()">Añadir Producto</button>
+
+         <div class='productos'>
+
+            <div class="titulo">
+               <h3>Producto</h3>
+               <select id="opcionElegida" class="opciones" (change)="ordenar()">
+                  <option value="default"></option>
+                  <option value="nombre">Ordenar por Nombre</option>
+                  <option value="precio">Ordenar por Precio</option>
+               </select>
+            </div>
+
+            <div class="info-tabla">
+               <p class="id-tabla">Nombre del producto</p>
+               <p class="monto-tabla">Precio unitario</p>
+               <span></span>
+
+            </div>
+            <div class='productos-info'>
+               @for (producto of resultObject; track producto.id_producto) {
+                  <div class='producto'>
+                     <p class='nombre-producto'>{{ producto.nombre }}</p>
+                     <p class="precio-producto">${{ producto.precio }}</p>
+                     <div class='botones'>
+                        <button class='edit' (click)="editarProducto(producto.id_producto)">Editar</button>
+                        <button class='delete' (click)="eliminarProducto(producto.id_producto)">Borrar</button>
+                     </div>
+                  </div>
+
+               }
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <router-outlet></router-outlet>
+}
+
