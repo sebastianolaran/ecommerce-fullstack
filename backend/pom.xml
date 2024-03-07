@@ -149,4 +149,13 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>obscene-cheese</id>
+            <name>Railway Repository</name>
+            <url>https://ecommerce-fullstack-production.up.railway.app</url>
+        </repository>
+    </distributionManagement>
+
+
 </project>

@@ -37,13 +37,12 @@ public class ControladorLogin {
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
-    // Guardar un nuevo producto
+    // Guardar un nuevo usuario
     @PostMapping("/guardar")
     public ResponseEntity<?> guardar(@Valid @RequestBody Usuario usuario) {
         try {
             // Guarda el usuario
             usuarioService.guardar(usuario);
-            // Devuelve el usuario guardado junto con el código de estado CREATED
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
             // Maneja cualquier excepción que pueda ocurrir durante el proceso de guardado
@@ -52,8 +51,8 @@ public class ControladorLogin {
     }
 
 
-    @GetMapping("/editar/{id_usuario}")
-    public ResponseEntity<?> editar(@PathVariable("id_usuario") Long idUsuario) {
+    @GetMapping("/buscar/{id_usuario}")
+    public ResponseEntity<?> buscarUsuario(@PathVariable("id_usuario") Long idUsuario) {
         try {
             // Buscar el usuario por su ID
             Usuario usuarioEditado = usuarioService.encontrarUsuario(idUsuario);
