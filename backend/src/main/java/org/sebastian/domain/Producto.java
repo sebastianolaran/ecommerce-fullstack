@@ -1,7 +1,6 @@
 package org.sebastian.domain;
 
 import jakarta.persistence.*;
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -31,8 +30,6 @@ public class Producto {
 
 
     private String descripcion;
-
-
 
 
     public Producto() {

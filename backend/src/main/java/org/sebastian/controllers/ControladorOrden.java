@@ -1,4 +1,4 @@
-package org.sebastian.web;
+package org.sebastian.controllers;
 
 
 import jakarta.persistence.EntityNotFoundException;
@@ -13,7 +13,6 @@ import org.sebastian.service.orden.OrdenService;
 import org.sebastian.service.orden.http.request.AgregarOrdenRequest;
 import org.sebastian.service.orden.http.request.AgregarProductoConOrdenRequest;
 import org.sebastian.service.orden.http.response.AgregarProductoConOrdenResponse;
-import org.sebastian.service.orden.http.response.IdResponse;
 import org.sebastian.service.orden.http.response.OrdenResponse;
 import org.sebastian.service.producto.http.request.DeleteRequest;
 import org.sebastian.service.producto.http.request.ProductoOrdenRequest;
@@ -50,21 +49,27 @@ public class ControladorOrden {
     }
 
 
-    //TODO chequear los return y optmimizarlos
     @PostMapping("/guardar")
-    public ResponseEntity<String> guardar(@RequestBody @Valid AgregarOrdenRequest request, Errors errors) {
+    public ResponseEntity<?> guardar(@RequestBody @Valid AgregarOrdenRequest request, Errors errors) {
         if (errors.hasErrors()) {
-            // Si hay errores de validación, retorna un código de estado BAD_REQUEST
-            return ResponseEntity.badRequest().body("Datos inválidos");
-        } else {
+            return ResponseEntity.badRequest().body("Error de validación: " + errors.getAllErrors());
+        }
+
+        if (request.getIdOrden() == null || request.getValorTotal() < 0 || request.getEstado() == null) {
+            return ResponseEntity.badRequest().body("Datos de solicitud incorrectos");
+        }
+
+        try {
             // Crea un objeto Orden a partir de los datos de la solicitud
             Orden orden = new Orden(request.getIdOrden(), (double) request.getValorTotal(), new Date(), request.getEstado());
 
             // Guarda la orden
             ordenService.guardar(orden);
 
-            // Retorna un código de estado OK junto con un mensaje
-            return ResponseEntity.ok("Orden guardada correctamente");
+            // Retorna un código de estado OK junto con la orden guardada
+            return ResponseEntity.ok(orden);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar la orden: " + e.getMessage());
         }
     }
 
@@ -75,7 +80,6 @@ public class ControladorOrden {
         return ordenService.obtenerOrdenesEnFechas(fechaActual);
 
     }
-
 
     @PostMapping("/eliminar")
     public ResponseEntity<Orden> eliminar(@RequestBody DeleteRequest request) {
@@ -112,7 +116,6 @@ public class ControladorOrden {
     }
 
 
-
     @GetMapping("/id")
     public ResponseEntity<String> obtenerId() {
         try {
@@ -122,7 +125,6 @@ public class ControladorOrden {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 
 
     @PostMapping("/producto/agregar")
@@ -144,7 +146,6 @@ public class ControladorOrden {
 
         return ResponseEntity.ok(agregarProductoConOrdenResponse);
     }
-
 
 
 }

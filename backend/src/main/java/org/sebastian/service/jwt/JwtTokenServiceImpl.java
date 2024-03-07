@@ -31,7 +31,6 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         Date expirationDate = new Date(System.currentTimeMillis() + jwtExpirationMs);
 
 
-
         // Agregar los datos adicionales que deseas incluir en el token
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", email);

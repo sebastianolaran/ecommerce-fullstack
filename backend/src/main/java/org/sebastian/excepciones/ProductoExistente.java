@@ -1,6 +1,6 @@
 package org.sebastian.excepciones;
 
-public class ProductoExistente extends Exception{
+public class ProductoExistente extends Exception {
 
     public ProductoExistente() {
         super("El producto ya existe en la base de datos");

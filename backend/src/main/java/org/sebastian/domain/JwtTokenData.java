@@ -14,9 +14,9 @@ public class JwtTokenData {
     Date expiracion;
 
 
-    public JwtTokenData(String email,  String rol,Date expiracion) {
+    public JwtTokenData(String email, String rol, Date expiracion) {
         this.email = email;
         this.rol = rol;
-        this.expiracion= expiracion;
+        this.expiracion = expiracion;
     }
 }

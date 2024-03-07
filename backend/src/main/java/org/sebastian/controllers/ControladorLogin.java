@@ -1,18 +1,18 @@
-package org.sebastian.web;
+package org.sebastian.controllers;
 
 import jakarta.validation.Valid;
+import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.sebastian.domain.Usuario;
 import org.sebastian.service.auth.AuthResponse;
 import org.sebastian.service.auth.AuthService;
 import org.sebastian.service.auth.LoginRequest;
 import org.sebastian.service.auth.RegisterRequest;
-import org.sebastian.domain.Usuario;
 import org.sebastian.service.usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,31 +39,36 @@ public class ControladorLogin {
 
     // Guardar un nuevo producto
     @PostMapping("/guardar")
-    public ResponseEntity<?> guardar(@Valid @RequestBody Usuario usuario, Errors errors) {
-        if (errors.hasErrors()) {
-            // Si hay errores de validación, retorna un código de estado BAD_REQUEST
-            return new ResponseEntity<>("Datos inválidos", HttpStatus.BAD_REQUEST);
-        } else {
-            // Guarda el producto y retorna un código de estado CREATED
+    public ResponseEntity<?> guardar(@Valid @RequestBody Usuario usuario) {
+        try {
+            // Guarda el usuario
             usuarioService.guardar(usuario);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            // Devuelve el usuario guardado junto con el código de estado CREATED
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (Exception e) {
+            // Maneja cualquier excepción que pueda ocurrir durante el proceso de guardado
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar el usuario: " + e.getMessage());
         }
     }
 
-    // Obtener un producto para editar por su ID
+
     @GetMapping("/editar/{id_usuario}")
-    public ResponseEntity<Usuario> editar(Usuario usuario) {
-        Usuario usuarioEditado = usuarioService.encontrarUsuario(usuario);
-        if (usuario != null) {
-            // Si encuentra el producto, retorna el producto y un código de estado OK
-            return new ResponseEntity<>(usuarioEditado, HttpStatus.OK);
-        } else {
-            // Si no encuentra el producto, retorna un código de estado NOT_FOUND
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> editar(@PathVariable("id_usuario") Long idUsuario) {
+        try {
+            // Buscar el usuario por su ID
+            Usuario usuarioEditado = usuarioService.encontrarUsuario(idUsuario);
+            // Devolver el usuario encontrado con el código de estado OK
+            return ResponseEntity.ok(usuarioEditado);
+        } catch (NotFoundException e) {
+            // Manejar el caso donde el usuario no es encontrado
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            // Manejar cualquier otra excepción que pueda ocurrir
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al buscar el usuario: " + e.getMessage());
         }
-
-
     }
+
+
 
     // Eliminar un producto por su ID
     @DeleteMapping("/eliminar/{id_usuario}")
@@ -99,7 +104,6 @@ public class ControladorLogin {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 
 
 }

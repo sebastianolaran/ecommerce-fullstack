@@ -15,10 +15,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 
-
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
-
 
 
     private final JwtTokenService tokenService;
@@ -31,7 +29,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         this.tokenService = tokenService;
         this.usuarioDAO = usuarioDAO;
     }
-
 
 
     @Override
@@ -47,12 +44,13 @@ public class UsuarioServiceImpl implements UsuarioService {
             Optional<Usuario> usuarioExistente = usuarioDAO.findByEmail(usuario.getEmail());
             if (usuarioExistente.isPresent()) {
                 throw new EmailEnUsoExcepcion();
-            }else{
-            // Si el correo electrónico no está en uso, guardar el usuario
-            usuarioDAO.save(usuario);
-            mensaje =  this.tokenService.generateToken(usuario.getEmail(),usuario.getPassword());}
+            } else {
+                // Si el correo electrónico no está en uso, guardar el usuario
+                usuarioDAO.save(usuario);
+                mensaje = this.tokenService.generateToken(usuario.getEmail(), usuario.getPassword());
+            }
         } catch (Exception e) {
-            mensaje ="Error al intentar guardar el usuario: " + e.getMessage();
+            mensaje = "Error al intentar guardar el usuario: " + e.getMessage();
         }
         return mensaje;
     }
@@ -64,8 +62,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario encontrarUsuario(Usuario usuario) {
-        return usuarioDAO.findById(usuario.getId_usuario()).orElse(null);
+    public Usuario encontrarUsuario(Long idUsuario) {
+        return usuarioDAO.findById(idUsuario).orElse(null);
     }
 
     @Override
@@ -73,7 +71,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Optional<Usuario> encontrarUsuarioPorEmail(String email) {
         return usuarioDAO.findByEmail(email);
     }
-
 
 
     @Override
@@ -85,7 +82,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             Usuario user = optionalUser.get();
 
             if (Objects.equals(contrasenia, user.getPassword())) {
-                mensaje = this.tokenService.generateToken(email,contrasenia);
+                mensaje = this.tokenService.generateToken(email, contrasenia);
             } else {
                 throw new ContraseñaIncorrectaExcepcion();
             }

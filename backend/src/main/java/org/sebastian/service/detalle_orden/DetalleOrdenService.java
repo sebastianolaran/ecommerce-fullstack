@@ -9,6 +9,7 @@ public interface DetalleOrdenService {
 
     /**
      * Obtiene una lista de productos con su cantidad asociado al id
+     *
      * @param idOrden El ID de la orden para la cual se desean obtener los productos.
      * @return Una lista de  productos asociados a la orden especificada.
      */
@@ -17,6 +18,7 @@ public interface DetalleOrdenService {
 
     /**
      * Guardar el detalle de orden en la base de datos
+     *
      * @param detalleOrden El detalle de la orden correspondinete
      * @return Un string que indica el estado del guardado del detalle de la orden.
      */

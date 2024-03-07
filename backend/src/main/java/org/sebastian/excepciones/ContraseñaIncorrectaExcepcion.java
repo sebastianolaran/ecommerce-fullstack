@@ -1,6 +1,6 @@
 package org.sebastian.excepciones;
 
-public class ContraseñaIncorrectaExcepcion extends Exception{
+public class ContraseñaIncorrectaExcepcion extends Exception {
     public ContraseñaIncorrectaExcepcion() {
         super("Contraseña incorrecta");
     }

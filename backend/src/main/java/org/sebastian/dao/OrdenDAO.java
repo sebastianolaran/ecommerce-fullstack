@@ -9,10 +9,11 @@ import org.springframework.data.repository.query.Param;
 import java.util.Date;
 import java.util.List;
 
-public interface OrdenDAO extends JpaRepository<Orden,Long> {
+public interface OrdenDAO extends JpaRepository<Orden, Long> {
 
     /**
      * Obtiene el monto total y la cantidad total de ventas realizadas en el dia de la fecha.
+     *
      * @param fechaActual La fecha para la cual se desean obtener las estadísticas de ventas diarias.
      * @return Una lista de objetos donde el primer elemento es el monto total y el segundo elemento es la cantidad total de ventas diarias.
      */
@@ -25,6 +26,7 @@ public interface OrdenDAO extends JpaRepository<Orden,Long> {
 
     /**
      * Obtiene el monto total y la cantidad total de ventas realizadas en la semana correspondiente de la fecha actual.
+     *
      * @param fechaActual La fecha para la cual se desean obtener las estadísticas de ventas semanales.
      * @return Una lista de objetos donde el primer elemento es el monto total y el segundo elemento es la cantidad total de ventas semanales.
      */
@@ -38,6 +40,7 @@ public interface OrdenDAO extends JpaRepository<Orden,Long> {
 
     /**
      * Obtiene el monto total y la cantidad total de ventas realizadas en el mes correspondiente a la fecha actual.
+     *
      * @param fechaActual La fecha para la cual se desean obtener las estadísticas de ventas mensuales.
      * @return Una lista de objetos donde el primer elemento es el monto total y el segundo elemento es la cantidad total de ventas mensuales.
      */

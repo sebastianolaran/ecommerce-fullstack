@@ -1,10 +1,8 @@
-package org.sebastian.web;
+package org.sebastian.controllers;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.sebastian.domain.Producto;
-import org.sebastian.excepciones.ContraseñaIncorrectaExcepcion;
-import org.sebastian.excepciones.EmailNoEncontrado;
 import org.sebastian.excepciones.ProductoExistente;
 import org.sebastian.service.producto.ProductoService;
 import org.sebastian.service.producto.http.request.AgregarRequest;
@@ -14,7 +12,6 @@ import org.sebastian.service.producto.http.response.ProductoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

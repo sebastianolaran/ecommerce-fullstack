@@ -1,7 +1,6 @@
 package org.sebastian.config;
 
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.sebastian.config.jwt.JwtAuthorizationFilter;
 import org.sebastian.service.jwt.JwtTokenServiceImpl;
@@ -26,20 +25,19 @@ public class SecurityConfig {
     private final AuthenticationProvider authProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
-    {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf ->
                         csrf
                                 .disable())
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers("/api/usuarios/login").permitAll()
-                                .requestMatchers("api/usuarios/register").permitAll()
+                                .requestMatchers("/v1/authenticate", "/swagger-ui/**", "/v3/api-docs/**", "/api/usuarios/login", "/api/usuarios/register").permitAll()
                                 .requestMatchers("/api/**").authenticated()
+                                .anyRequest().authenticated()
 
                 )
-                .sessionManagement(sessionManager->
+                .sessionManagement(sessionManager ->
                         sessionManager
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)

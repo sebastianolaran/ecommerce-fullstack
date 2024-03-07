@@ -1,6 +1,6 @@
 package org.sebastian.excepciones;
 
-public class JwtTokenException extends  Exception{
+public class JwtTokenException extends Exception {
     public JwtTokenException(String message) {
         super(message);
     }

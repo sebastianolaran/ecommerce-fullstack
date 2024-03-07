@@ -4,8 +4,6 @@ package org.sebastian.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 @Entity
 @Table(name = "orden_detalle")

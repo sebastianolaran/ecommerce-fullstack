@@ -1,6 +1,6 @@
 package org.sebastian.excepciones;
 
-public class EmailEnUsoExcepcion extends Exception{
+public class EmailEnUsoExcepcion extends Exception {
     public EmailEnUsoExcepcion() {
         super("El email esta en uso");
     }

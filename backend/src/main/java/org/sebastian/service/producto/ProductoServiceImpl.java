@@ -32,9 +32,10 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public String guardar(Producto producto) throws ProductoExistente {
         String mensaje;
-        if (this.existeProducto(producto.getNombre())) {
+        if( this.existeProducto(producto.getNombre())){
             throw new ProductoExistente();
-        } else {
+        }
+        else {
             productoDAO.save(producto);
             mensaje = "Guardado correcto";
         }
@@ -44,12 +45,14 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
 
+
     private boolean existeProducto(String nombre) {
         return productoDAO.encontrarPorNombre(nombre).isPresent();
     }
 
     @Override
     public void eliminar(String id_producto) {
+
         Optional<Producto> productoOptional = productoDAO.findById(Long.valueOf(id_producto));
 
         Producto producto = productoOptional.orElse(null); // or provide a default value
@@ -57,9 +60,9 @@ public class ProductoServiceImpl implements ProductoService {
         if (producto != null) {
             productoDAO.delete(producto);
         } else {
-            // Si el producto no se encuentra, podrías lanzar una excepción específica o simplemente no hacer nada
-            throw new EntityNotFoundException("No se encontró el producto con ID: " + id_producto);
+            ///
         }
+
     }
 
     public ResponseEntity<String> editarProducto(EditarRequest request) {
@@ -95,6 +98,8 @@ public class ProductoServiceImpl implements ProductoService {
                     .body("Error inesperado al editar el producto. Detalles: " + e.getMessage());
         }
     }
+
+
 
 
     @Override
