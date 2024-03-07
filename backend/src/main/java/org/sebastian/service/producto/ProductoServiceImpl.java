@@ -9,6 +9,8 @@ import org.sebastian.service.producto.http.request.EditarRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,10 +32,9 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public String guardar(Producto producto) throws ProductoExistente {
         String mensaje;
-        if( this.existeProducto(producto.getNombre())){
+        if (this.existeProducto(producto.getNombre())) {
             throw new ProductoExistente();
-        }
-        else {
+        } else {
             productoDAO.save(producto);
             mensaje = "Guardado correcto";
         }
@@ -43,14 +44,12 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
 
-
     private boolean existeProducto(String nombre) {
         return productoDAO.encontrarPorNombre(nombre).isPresent();
     }
 
     @Override
     public void eliminar(String id_producto) {
-
         Optional<Producto> productoOptional = productoDAO.findById(Long.valueOf(id_producto));
 
         Producto producto = productoOptional.orElse(null); // or provide a default value
@@ -58,16 +57,22 @@ public class ProductoServiceImpl implements ProductoService {
         if (producto != null) {
             productoDAO.delete(producto);
         } else {
-            ///
+            // Si el producto no se encuentra, podrías lanzar una excepción específica o simplemente no hacer nada
+            throw new EntityNotFoundException("No se encontró el producto con ID: " + id_producto);
         }
-
     }
 
-    public String editarProducto(EditarRequest request) {
-        String mensaje;
+    public ResponseEntity<String> editarProducto(EditarRequest request) {
         try {
+            Long idProducto = Long.valueOf(request.getId_producto());
+            // Validar el ID del producto
+            if (idProducto <= 0) {
+                return ResponseEntity.badRequest().body("Error: El ID del producto no es válido.");
+            }
+
             // Recuperar la entidad existente
-            Producto producto = productoDAO.findById(Long.valueOf(request.getId_producto())).orElseThrow(() -> new EntityNotFoundException("No se encontró el producto con ID: " + request.getId_producto()));
+            Producto producto = productoDAO.findById(idProducto)
+                    .orElseThrow(() -> new EntityNotFoundException("No se encontró el producto con ID: " + idProducto));
 
             // Actualizar los campos
             producto.setCategoria(request.getCategoria());
@@ -77,18 +82,19 @@ public class ProductoServiceImpl implements ProductoService {
             // Guardar la entidad actualizada
             productoDAO.save(producto);
 
-            mensaje= "Producto editado correctamente.";
+            return ResponseEntity.ok("Producto editado correctamente.");
         } catch (NumberFormatException e) {
-            mensaje= "Error: El ID del producto no es válido.";
+            // Manejar el error de formato de número
+            return ResponseEntity.badRequest().body("Error: El precio del producto no es un número válido.");
         } catch (EntityNotFoundException e) {
-            mensaje= "Error: No se encontró el producto con el ID proporcionado.";
+            // Manejar el error de entidad no encontrada
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            mensaje ="Error inesperado al editar el producto. Detalles: " + e.getMessage();
+            // Manejar otros errores internos
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error inesperado al editar el producto. Detalles: " + e.getMessage());
         }
-        return mensaje;
     }
-
-
 
 
     @Override

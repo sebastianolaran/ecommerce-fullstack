@@ -1,6 +1,7 @@
 package org.sebastian.web;
 
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +50,6 @@ public class ControladorOrden {
     }
 
 
-
     //TODO chequear los return y optmimizarlos
     @PostMapping("/guardar")
     public ResponseEntity<String> guardar(@RequestBody @Valid AgregarOrdenRequest request, Errors errors) {
@@ -69,66 +69,82 @@ public class ControladorOrden {
     }
 
 
-
-
     @GetMapping("/info")
     public OrdenResponse obtenerOrdenesEnFecha() throws ParseException {
         Date fechaActual = new Date();
-
         return ordenService.obtenerOrdenesEnFechas(fechaActual);
 
     }
 
-    //TODO chequear los return y optmimizarlos
+
     @PostMapping("/eliminar")
     public ResponseEntity<Orden> eliminar(@RequestBody DeleteRequest request) {
         Long orden_id = request.getId_producto();
         if (orden_id != null) {
-            ordenService.eliminar(String.valueOf(orden_id));
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
+            try {
+                ordenService.eliminar(String.valueOf(orden_id));
+                return new ResponseEntity<>(HttpStatus.OK);
+            } catch (EntityNotFoundException e) {
+                return ResponseEntity.notFound().build(); // Orden no encontrada}
 
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return ResponseEntity.badRequest().build(); // ID de producto no válido
         }
     }
 
 
-    //TODO chequear los return y optmimizarlos
     @PostMapping("/productos")
     public ResponseEntity<List<ProductoConCantidad>> obtenerProductos(@RequestBody ProductoOrdenRequest request) {
-        String orden_id = request.getId_orden();
-        List<ProductoConCantidad> productos = detalleOrdenService.obtenerProductos(orden_id);
-        return new ResponseEntity<>(productos, HttpStatus.OK);
+        String ordenId = request.getId_orden();
 
+        if (ordenId == null || ordenId.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        List<ProductoConCantidad> productos = detalleOrdenService.obtenerProductos(ordenId);
+
+        if (productos.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(productos);
     }
 
 
 
     @GetMapping("/id")
-    public ResponseEntity<IdResponse> obtenerId() {
-        String idUnico = ordenService.generarIdUnico();
-
-        // Crear un objeto IdResponse y establecer el ID
-        IdResponse idResponse = new IdResponse();
-        idResponse.setId_orden(idUnico);
-
-        // Devolver el objeto IdResponse como respuesta con el código de estado OK (200)
-        return ResponseEntity.ok(idResponse);
+    public ResponseEntity<String> obtenerId() {
+        try {
+            String idUnico = ordenService.generarIdUnico();
+            return ResponseEntity.ok(idUnico);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 
 
-    //TODO chequear los return y optmimizarlos
     @PostMapping("/producto/agregar")
     public ResponseEntity<AgregarProductoConOrdenResponse> agregarProductoDeOrden(@RequestBody AgregarProductoConOrdenRequest request) {
+        if (request.getId_orden() == null || request.getId_producto() == null || request.getCantidad() <= 0 || request.getPrecio_unitario() <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
         DetalleOrden orden = new DetalleOrden(request.getId_orden(), request.getId_producto(), request.getCantidad(), request.getPrecio_unitario());
         String mensaje = detalleOrdenService.guardar(orden);
+
+        if (mensaje == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
         AgregarProductoConOrdenResponse agregarProductoConOrdenResponse = new AgregarProductoConOrdenResponse();
         agregarProductoConOrdenResponse.setMensaje(mensaje);
         // Agregar cualquier otra lógica de respuesta si es necesario
 
-        return new ResponseEntity<>(agregarProductoConOrdenResponse, HttpStatus.OK);
+        return ResponseEntity.ok(agregarProductoConOrdenResponse);
     }
+
 
 
 }

@@ -1,5 +1,6 @@
 package org.sebastian.web;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.sebastian.domain.Producto;
 import org.sebastian.excepciones.ContraseñaIncorrectaExcepcion;
@@ -52,41 +53,44 @@ public class ControladorProductos {
 
 
     // Obtener un producto para editar por su ID
-    //TODO chequear los return y optmimizarlos
-    @GetMapping("/buscar/{id_producto}")
-    public ResponseEntity<Producto> encontrarProducto(@PathVariable Long id_producto) {
-        Producto producto = productoService.encontrarProducto(id_producto);
+    @GetMapping("/buscar/{idProducto}")
+    public ResponseEntity<Producto> encontrarProductoPorId(@PathVariable Long idProducto) {
+        // Buscar el producto por su ID
+        Producto producto = productoService.encontrarProducto(idProducto);
+
+        // Verificar si se encontró el producto
         if (producto != null) {
-            // Si encuentra el producto, retorna el producto y un código de estado OK
-            return new ResponseEntity<>(producto, HttpStatus.OK);
+            // Si se encontró el producto, retorna el producto y un código de estado OK
+            return ResponseEntity.ok(producto);
         } else {
-            // Si no encuentra el producto, retorna un código de estado NOT_FOUND
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            // Si no se encontró el producto, retorna un código de estado NOT_FOUND
+            return ResponseEntity.notFound().build();
         }
-
-
     }
 
 
-    //TODO chequear los return y optmimizarlos
+
+
     @PostMapping("/editar")
-    public ProductoResponse editarProducto(@RequestBody EditarRequest request) {
-        return (ProductoResponse.builder().mensaje(productoService.editarProducto(request)).build());
+    public ResponseEntity<String> editarProducto(@RequestBody EditarRequest request) {
+        return productoService.editarProducto(request);
     }
 
 
-    // Eliminar un producto por su ID
-    //TODO chequear los return y optmimizarlos
     @PostMapping("/eliminar")
-    public ResponseEntity<Producto> eliminar(@RequestBody DeleteRequest request) {
-        Long producto_id = request.getId_producto();
-        if (producto_id != null) {
-            // Si encuentra el producto, lo elimina y retorna un código de estado OK
-            productoService.eliminar(String.valueOf(producto_id));
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Void> eliminar(@RequestBody DeleteRequest request) {
+        Long productoId = request.getId_producto();
+
+        if (productoId != null) {
+            try {
+                productoService.eliminar(String.valueOf(productoId));
+                return ResponseEntity.ok().build(); // Producto eliminado exitosamente
+            } catch (EntityNotFoundException e) {
+                return ResponseEntity.notFound().build(); // Producto no encontrado
+            }
         } else {
-            // Si no encuentra el producto, retorna un código de estado NOT_FOUND
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.badRequest().build(); // ID de producto no válido
         }
     }
+
 }

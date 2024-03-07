@@ -3,6 +3,7 @@ package org.sebastian.service.producto;
 import org.sebastian.domain.Producto;
 import org.sebastian.excepciones.ProductoExistente;
 import org.sebastian.service.producto.http.request.EditarRequest;
+import org.springframework.http.ResponseEntity;
 
 
 import java.util.List;
@@ -44,7 +45,7 @@ public interface ProductoService {
      * @return Un string que indica el estado finalizado de la operacion
      */
 
-    String editarProducto(EditarRequest request);
+    ResponseEntity<String> editarProducto(EditarRequest request);
 
 
 }
